@@ -38,10 +38,9 @@ echo $content_php ?? "";
 </head>
 
 <body>
+    <?php require_once "pages/body/nav.php" ?>
 
     <div class="container mt-5">
-
-        <?php require_once "pages/body/nav.php" ?>
 
         <?= $content_html ?? "" ?>
     </div>
