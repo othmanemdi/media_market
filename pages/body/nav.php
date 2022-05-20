@@ -1,6 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">MEDIA MARKET</a>
+        <a class="navbar-brand" href="#">
+            <img src="images/logo/m.png" width="60" alt="">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -20,18 +22,18 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="home">
+                    <a class="nav-link <?= $page === 'home' ? 'text-info fw-bold' : '' ?>" aria-current="page" href="home">
                         Acceuil
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="shop">
+                    <a class="nav-link  <?= $page === 'shop' ? 'text-info fw-bold' : '' ?>" aria-current="page" href="shop">
                         Boutique
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="contact">
+                    <a class="nav-link  <?= $page === 'contact' ? 'text-info fw-bold' : '' ?>" aria-current="page" href="contact">
                         Contactez-nous
                     </a>
                 </li>
@@ -42,13 +44,31 @@
                     <a href="login" class="nav-link link-dark px-2">Connection</a>
                 </li>
                 <li class="nav-item">
-                    <a href="register" class="nav-link link-dark px-2">Créer un compte</a>
+                    <a href="register" class="nav-link link-dark px-2 fw-bold">Créer un compte</a>
                 </li>
             </ul>
 
         </div>
     </div>
 </nav>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="images/logo/media_market_logo.png" width="250" class="img-fluid rounded-top" alt="">
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="input-group input-group-lg mt-4">
+                <input type="text" class="form-control border-info border-2 rounded-end rounded-pill " placeholder="Saisissez votre recherche...">
+                <button class="btn btn-info text-white rounded-start rounded-pill px-4">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 
 
 <a href="cart" class="position-relative text-dark">
