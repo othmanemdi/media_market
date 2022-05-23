@@ -41,10 +41,10 @@
             </ul>
             <ul class="d-flex nav">
                 <li class="nav-item">
-                    <a href="login" class="nav-link link-dark px-2">Connection</a>
+                    <a href="login" class="nav-link link-dark px-2 <?= $page === 'login' ? 'text-info fw-bold' : '' ?>">Connection</a>
                 </li>
                 <li class="nav-item">
-                    <a href="register" class="nav-link link-dark px-2 fw-bold">Créer un compte</a>
+                    <a href="register" class="nav-link link-dark px-2 <?= $page === 'register' ? 'text-info fw-bold' : '' ?>">Créer un compte</a>
                 </li>
             </ul>
 
