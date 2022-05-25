@@ -1,5 +1,0 @@
-CMD
-echo "" >.gitignore
-
-Git bash
-touch .gitignore
