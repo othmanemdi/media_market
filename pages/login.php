@@ -4,7 +4,6 @@ ob_start();
 // php
 $title = "Login";
 
-
 if (!empty($_POST) && !empty($_POST['username']) && !empty($_POST['password'])) {
 
     $input_email = htmlspecialchars(trim($_POST['email']));
@@ -19,14 +18,9 @@ if (!empty($_POST) && !empty($_POST['username']) && !empty($_POST['password'])) 
     exit();
 }
 
-
-
-
 $content_php = ob_get_clean();
 
-
 ob_start(); ?>
-
 
 <div class="row justify-content-md-center ">
     <div class="col-6">
