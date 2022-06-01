@@ -9,7 +9,7 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h1>hello hind</h1>
+<h1>Shop page</h1>
 
 
 <?php $content_html = ob_get_clean(); ?>
