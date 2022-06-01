@@ -38,7 +38,10 @@ echo $content_php ?? "";
 </head>
 
 <body>
+    <?php require_once "pages/body/info.php" ?>
+    <?php require_once "pages/body/header.php" ?>
     <?php require_once "pages/body/nav.php" ?>
+    
 
     <div class="container mt-5">
 
@@ -48,7 +51,7 @@ echo $content_php ?? "";
 
 
     <?= $content_js ?? ""; ?>
-
+    <?php require_once "pages/body/footer.php" ?>
 </body>
 
 </html>
