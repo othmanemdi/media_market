@@ -1,15 +1,48 @@
-::-webkit-scrollbar {
-    width: 8px;
+.bg-Media-Market {
+    background-color: #0dcaf0 !important;
 }
 
-::-webkit-scrollbar-track {
-    background: lightgray;
-    border-radius: 50px;
+.text-Media-Market {
+    color: #0dcaf0 !important;
 }
 
-::-webkit-scrollbar-thumb {
-    /* background: #212529; */
-    background: #0dcaf0;
 
-    border-radius: 50px;
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #0dcaf0 !important;
+}
+
+.form-control:focus {
+    border-color: #0dcaf0 !important;
+    box-shadow: 0 0 0 0.2rem #0dcaf0(28, 175, 207, 0.25) !important;
+}
+
+.accordion-button:focus {
+    border-color: #0dcaf0;
+    box-shadow: 0 0 0 0.2rem #0dcaf0(217 35 15 / 25%) !important;
+    border-radius: 4px;
+}
+
+.text-Media-Market-hover:hover {
+    color: #0dcaf0 !important;
+}
+
+.activated {
+    color: #0dcaf0 !important;
+    font-weight: bold !important;
+}
+
+
+/* Src https://www.w3schools.com/howto/howto_css_text_selection.asp */
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: #0dcaf0;
+    background: #fff1f1;
+}
+
+::selection {
+    color: #0dcaf0;
+    background: #fff1f1;
 }

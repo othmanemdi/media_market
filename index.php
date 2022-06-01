@@ -29,6 +29,7 @@ echo $content_php ?? "";
 <html lang="en">
 
 <head>
+    <?= $content_seo ?? ""; ?>
 
     <?php require_once "pages/body/head.php" ?>
 
@@ -38,14 +39,22 @@ echo $content_php ?? "";
 </head>
 
 <body>
-    <?php require_once "pages/body/nav.php" ?>
 
-    <div class="container mt-5">
+    <?php require_once "pages/body/info.php" ?>
+
+    <div class="container mt-4">
+        <?php require_once "pages/body/header.php" ?>
+        <?php require_once "pages/body/nav.php" ?>
 
         <?= $content_html ?? "" ?>
     </div>
 
+    <?php require_once "pages/body/back-to-top.php" ?>
 
+
+    <footer>
+        <?php require_once "pages/body/footer.php" ?>
+    </footer>
 
     <?= $content_js ?? ""; ?>
 

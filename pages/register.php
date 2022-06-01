@@ -150,7 +150,7 @@ ob_start(); ?>
                     </div>
                 </div>
 
-                <button type="submit" name="ajt_compte" class="btn btn-info text-white">Créer un compte</button>
+                <button type="submit" name="ajt_compte" class="btn bg-Media-Market text-white">Créer un compte</button>
                 <button class="btn btn-secondary">Retour</button>
             </form>
         </div>
