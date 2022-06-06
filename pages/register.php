@@ -10,23 +10,23 @@ if (isset($_POST['ajt_compte'])) {
         // $errors["prenom"] = "Votre prénome n'est pas valide";
         $errors["prenom"] = "";
         if (empty($_POST['prenom'])) {
-            $errors["prenom"] .= "Veuillez saisir votre prenom SVP";
+            $errors["prenom"] .= "Veuillez saisir votre prenom SVP ";
         } else {
 
             if (!preg_match('/^[a-zA-Z]+$/', $_POST['prenom'])) {
-                $errors["prenom"] .= "Veuillez entrer des caractères alphabétique";
+                $errors["prenom"] .= "Veuillez entrer des caractères alphabétique ";
             }
             if (strlen($_POST['prenom']) < 3) {
-                $errors["prenom"] .= "Veuillez entrer plus de 3 caractères";
+                $errors["prenom"] .= "Veuillez entrer plus de 3 caractères ";
             }
         }
-
         $prenom_class_input = "is-invalid";
         $prenom_class_feedback = "invalid-feedback";
     } else {
         $prenom_class_input = "is-valid";
         $prenom_class_feedback = "valid-feedback";
     }
+
 
     if (empty($_POST['nom']) || !preg_match('/^[a-zA-Z]+$/', $_POST['nom'])) {
         $errors["nom"] = "Votre nom n'est pas valide";
@@ -42,8 +42,19 @@ if (isset($_POST['ajt_compte'])) {
         $email_class_input = "is-invalid";
         $email_class_feedback = "invalid-feedback";
     } else {
-        $email_class_input = "is-valid";
-        $email_class_feedback = "valid-feedback";
+        $req = $pdo->prepare('SELECT id FROM users WHERE email = ?');
+        $req->execute([$_POST['email']]);
+        $user = $req->fetch();
+
+
+        if ($user) {
+            $errors['email'] = 'Cet email est déjà utilisé pour un autre compte';
+            $email_class_input = "is-invalid";
+            $email_class_feedback = "invalid-feedback";
+        } else {
+            $email_class_input = "is-valid";
+            $email_class_feedback = "valid-feedback";
+        }
     }
 
 
@@ -64,7 +75,21 @@ if (isset($_POST['ajt_compte'])) {
         $password_confirm_class_input = "is-valid";
         $password_confirm_class_feedback = "valid-feedback";
     }
+
+    if (empty($errors)) {
+        $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+        $req = $pdo->prepare("INSERT INTO users SET prenom = ?, nom = ?, password = ?, email = ?");
+        $req->execute([$_POST['prenom'], $_POST['nom'], $password, $_POST['email']]);
+        $user_id = $pdo->lastInsertId();
+
+        $_SESSION['flash']['success'] = 'Bien enregister';
+        header('Location: login');
+        exit();
+    }
 }
+
+
 
 $title = "Register";
 
