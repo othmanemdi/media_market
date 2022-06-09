@@ -4,20 +4,32 @@ ob_start();
 // php
 $title = "Login";
 
-if (!empty($_POST) && !empty($_POST['username']) && !empty($_POST['password'])) {
+if (isset($_POST['login'])) {
+    if (!empty($_POST['email']) && !empty($_POST['password'])) {
 
-    $input_email = htmlspecialchars(trim($_POST['email']));
-    $input_password = htmlspecialchars(trim($_POST['password']));
+        $input_email = htmlspecialchars(trim($_POST['email']));
+        $input_password = htmlspecialchars(trim($_POST['password']));
 
-    $req = $pdo->prepare('SELECT * FROM users WHERE email = :email AND password = :password');
+        $req = $pdo->prepare('SELECT * FROM users WHERE email = :email LIMIT 1');
+        $req->execute(['email' => $input_email]);
+        $user = $req->fetch();
 
-    $req->execute(['email' => $input_email, 'password' => $input_password]);
+        // echo '<pre>';
+        // print_r(password_verify(1234567, $user->password));
+        // echo '</pre>';
 
-    echo "Ok";
-    // header('Location: dashboard');
+        // exit();
+        if (password_verify($input_password, $user->password)) {
+            $_SESSION['auth'] = $user;
+            $_SESSION['flash']['success'] = 'Vous êtes maintenant connecté';
+            header('Location: dashboard');
+        } else {
+            $_SESSION['flash']['danger'] = 'Identifiant ou mot de passe incorrecte';
+            header('Location: login');
+        }
+    }
     exit();
 }
-
 $content_php = ob_get_clean();
 
 ob_start(); ?>

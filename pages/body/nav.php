@@ -33,16 +33,22 @@
                     <a class="nav-link link-dark px-2  <?= $page == "shop" ? 'text-info fw-bold' : "" ?>" href="shop">Boutique</a>
                 </li>
 
-               
+
 
             </ul>
+
             <ul class="nav">
-                <li class="nav-item">
-                    <a href="login" class="nav-link link-dark px-2 <?= $page == "login" ? 'text-info fw-bold' : "" ?>"> <i class="fa-solid fa-user"></i> Connection</a>
-                </li>
-                <li class="nav-item">
-                    <a href="register" class="nav-link link-dark px-2 <?= $page == "register" ? 'text-info fw-bold' : "" ?>"> <i class="fa-solid fa-arrow-right-to-bracket"></i>  Créer un compte</a>
-                </li>
+                <?php if (isset($_SESSION['auth'])) : ?>
+                    <li class="nav-item"><a href="logout" class="nav-link link-dark px-2 "> <?= ucfirst($_SESSION['auth']->prenom) ?> <?= ucfirst($_SESSION['auth']->email) ?></a></li>
+                <?php else : ?>
+                    <li class="nav-item">
+                        <a href="login" class="nav-link link-dark px-2 <?= $page === 'login' ? 'text-info fw-bold' : '' ?>">Connection</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="register" class="nav-link link-dark px-2 <?= $page === 'register' ? 'text-info fw-bold' : '' ?>">Créer un compte</a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
         </div>
     </nav>
