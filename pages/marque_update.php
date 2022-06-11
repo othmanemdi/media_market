@@ -2,11 +2,29 @@
 
 ob_start();
 // php
-$title = "Ajouter une nouvelle marque";
+$title = "Modifier";
+
+if (!isset($_GET['id'])) {
+    $_SESSION['flash']['danger'] = 'Id introuvable';
+    header('Location: marques');
+    die();
+}
+
+$id = (int)$_GET['id'];
+
+if ($id == 0) {
+    $_SESSION['flash']['danger'] = 'Id introuvable';
+    header('Location: marques');
+    die();
+}
+
+
+$marque_name = $pdo->query("SELECT nom FROM marques WHERE id = $id")->fetch()->nom;
 
 $errors = [];
 
-if (isset($_POST['marque_add'])) {
+if (isset($_POST['marque_update'])) {
+
     $nom = _string($_POST['nom']);
     $req = $pdo->prepare('SELECT id FROM marques WHERE nom = ? LIMIT 1');
     $req->execute([$nom]);
@@ -42,15 +60,16 @@ if (isset($_POST['marque_add'])) {
 
 
     if (empty($errors)) {
-        $user = $pdo->prepare("INSERT INTO marques SET 
-                nom = :nom
+        $user = $pdo->prepare("UPDATE marques SET 
+                nom = :nom WHERE id = :id
         ");
         $user->execute(
             [
+                'id' => $id,
                 'nom' => $nom
             ]
         );
-        $_SESSION['flash']['success'] = 'Bien enregister';
+        $_SESSION['flash']['success'] = 'Bien modifier';
         header('Location: marques');
         die();
     }
@@ -61,14 +80,14 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h3 class="mb-3">Ajouter une nouvelle marque</h3>
+<h3 class="mb-3">Modifier <?= $marque_name ?></h3>
 
 
 <div class="row justify-content-md-center ">
     <div class="col-6">
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4>Ajouter une nouvelle marque</h4>
+                <h4>Modifier <?= $marque_name ?></h4>
             </div>
 
             <div class="card-body">
@@ -97,14 +116,14 @@ ob_start(); ?>
                     <div class="mb-3">
                         <label for="nom" class="form-label">Marque</label>
 
-                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Nike">
+                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" value="<?= $marque_name ?>" id="nom" placeholder="Nike">
 
                         <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
                             <?= $errors['nom'] ?? "" ?>
                         </div>
                     </div>
 
-                    <button type="submit" name="marque_add" class="btn btn-success">Ajouter</button>
+                    <button type="submit" name="marque_update" class="btn btn-success">Modifier</button>
                 </form>
 
             </div>

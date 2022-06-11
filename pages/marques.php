@@ -46,7 +46,7 @@ ob_start(); ?>
                                 <?= strtoupper($m->nom) ?>
                             </td>
                             <td>
-                                <a href="" class="btn btn-dark btn-sm">
+                                <a href="marque_update&id=<?= $m->id ?>" class="btn btn-dark btn-sm">
                                     <i class="fas fa-wrench"></i>
                                     Modifier
                                 </a>
