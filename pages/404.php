@@ -9,7 +9,7 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h1>404 page</h1>
+<h3>404 page</h3>
 
 
 <?php $content_html = ob_get_clean(); ?>
