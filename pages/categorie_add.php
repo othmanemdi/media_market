@@ -50,7 +50,7 @@ if (isset($_POST['categorie_add'])) {
                 'nom' => $nom
             ]
         );
-        $_SESSION['flash']['success'] ='Bien enregister';
+        $_SESSION['flash']['success'] =' <i class="fa-solid fa-check"></i> Bien enregister';
         header('Location: categories');
         die();
     }

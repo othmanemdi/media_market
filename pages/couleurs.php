@@ -6,7 +6,17 @@ $title = "Couleurs";
 
 $couleurs = $pdo->query("SELECT * FROM couleurs")->fetchAll();
 
-// dd($couleurss);
+// dd($couleurs);
+
+
+if (isset($_POST['couleur_delete'])) {
+
+    $id = (int)$_POST['couleur_id'];
+    $pdo->query("DELETE FROM couleurs WHERE id = $id");
+    $_SESSION['flash']['success'] = ' <i class="fa-solid fa-check"></i> Bien supprimer';
+    header('Location: couleurs');
+    die();
+}
 
 $content_php = ob_get_clean();
 
@@ -50,10 +60,41 @@ ob_start(); ?>
                                     <i class="fas fa-wrench"></i>
                                     Modifier
                                 </a>
-                                <button type="button" class="btn btn-danger btn-sm">
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#couleur_delete_<?= $c->id ?>">
                                     <i class="fas fa-trash-alt"></i>
                                     Supprimer
                                 </button>
+
+                                <div class="modal fade" id="couleur_delete_<?= $c->id ?>" tabindex="-1" aria-labelledby="label_<?= $c->id ?>" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_<?= $c->id ?>">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    Supprimer
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="text-danger fw-bold h5"> Voulez vous vraiment supprimer <?= strtoupper($c->nom) ?> ?</div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    <i class="fas fa-undo"></i>
+                                                    Retour
+                                                </button>
+
+                                                <form method="post" style="display: inline;">
+                                                    <input type="hidden" name="couleur_id" value="<?= $c->id ?>">
+                                                    <button name="couleur_delete" type="submit" class="btn btn-danger">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach  ?>
