@@ -4,7 +4,7 @@ ob_start();
 // php
 $title = "Marques";
 
-$marques = $pdo->query("SELECT * FROM marques")->fetchAll();
+$marques = $pdo->query("SELECT * FROM marques ORDER BY id DESC;")->fetchAll();
 
 // dd($marques);
 
@@ -34,7 +34,8 @@ ob_start(); ?>
     <div class="card-body">
         <a href="marque_add" class="btn btn-primary mb-3">
             <i class="fas fa-plus"></i>
-            Ajouter</a>
+            Ajouter
+        </a>
 
         <div class="table-responsive">
 
@@ -61,13 +62,51 @@ ob_start(); ?>
                                     Modifier
                                 </a>
 
-                                <form method="post" style="display: inline;">
-                                    <input type="hidden" name="marque_id" value="<?= $m->id ?>">
-                                    <button name="marque_delete" type="submit" class="btn btn-danger btn-sm">
-                                        <i class="fas fa-trash-alt"></i>
-                                        Supprimer
-                                    </button>
-                                </form>
+
+
+
+                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#marque_delete_<?= $m->id ?>">
+                                    <i class="fas fa-trash-alt"></i>
+                                    Supprimer
+                                </button>
+
+                                <div class="modal fade" id="marque_delete_<?= $m->id ?>" tabindex="-1" aria-labelledby="label_<?= $m->id ?>" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="label_<?= $m->id ?>">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                    Supprimer
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="text-danger fw-bold h5"> Voulez vous vraiment supprimer <?= strtoupper($m->nom) ?> ?</div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                    <i class="fas fa-undo"></i>
+                                                    Retour
+                                                </button>
+
+                                                <form method="post" style="display: inline;">
+                                                    <input type="hidden" name="marque_id" value="<?= $m->id ?>">
+                                                    <button name="marque_delete" type="submit" class="btn btn-danger">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        Supprimer
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+
+
+
+
 
                             </td>
                         </tr>
