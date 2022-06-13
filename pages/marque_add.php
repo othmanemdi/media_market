@@ -77,7 +77,7 @@ ob_start(); ?>
                     Liste des marques
                 </a>
 
-                <?php if (!empty($errors)) : ?>
+                <!-- <?php if (!empty($errors)) : ?>
                     <div class="alert alert-danger shadow mb-4">
                         <h5>
                             Vous n'avez pas rempli le formulaire correctement
@@ -91,13 +91,13 @@ ob_start(); ?>
                             <?php endforeach ?>
                         </ul>
                     </div>
-                <?php endif ?>
+                <?php endif ?> -->
 
                 <form method="post">
                     <div class="mb-3">
                         <label for="nom" class="form-label">Marque</label>
 
-                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Nike">
+                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="marque">
 
                         <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
                             <?= $errors['nom'] ?? "" ?>
