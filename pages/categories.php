@@ -8,6 +8,16 @@ $categories = $pdo->query("SELECT * FROM categories")->fetchAll();
 
 // dd($categories);
 
+
+if (isset($_POST['categorie_delete'])) {
+
+    $id = (int)$_POST['categorie_id'];
+    $pdo->query("DELETE FROM categories WHERE id = $id");
+    $_SESSION['flash']['success'] = ' <i class="fa-solid fa-check"></i> Bien supprimer';
+    header('Location: categories');
+    die();
+}
+
 $content_php = ob_get_clean();
 
 

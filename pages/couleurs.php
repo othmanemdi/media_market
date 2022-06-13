@@ -6,7 +6,17 @@ $title = "Couleurs";
 
 $couleurs = $pdo->query("SELECT * FROM couleurs")->fetchAll();
 
-// dd($couleurss);
+// dd($couleurs);
+
+
+if (isset($_POST['couleur_delete'])) {
+
+    $id = (int)$_POST['couleur_id'];
+    $pdo->query("DELETE FROM couleurs WHERE id = $id");
+    $_SESSION['flash']['success'] = ' <i class="fa-solid fa-check"></i> Bien supprimer';
+    header('Location: couleurs');
+    die();
+}
 
 $content_php = ob_get_clean();
 

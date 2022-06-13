@@ -69,7 +69,7 @@ if (isset($_POST['marque_update'])) {
                 'nom' => $nom
             ]
         );
-        $_SESSION['flash']['success'] = 'Bien modifier';
+        $_SESSION['flash']['success'] = ' <i class="fa-solid fa-check"></i> Bien modifier';
         header('Location: marques');
         die();
     }
