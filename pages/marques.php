@@ -13,7 +13,7 @@ if (isset($_POST['marque_delete'])) {
 
     $id = (int)$_POST['marque_id'];
     $pdo->query("DELETE FROM marques WHERE id = $id");
-    $_SESSION['flash']['success'] = 'Bien supprimer';
+    $_SESSION['flash']['success'] = ' <i class="fa-solid fa-check"></i> Bien supprimer';
     header('Location: marques');
     die();
 }
