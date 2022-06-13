@@ -77,7 +77,6 @@ if (isset($_POST['marque_update'])) {
 
 $content_php = ob_get_clean();
 
-
 ob_start(); ?>
 
 <h3 class="mb-3">Modifier <?= $marque_name ?></h3>

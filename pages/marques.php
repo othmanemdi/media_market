@@ -8,6 +8,16 @@ $marques = $pdo->query("SELECT * FROM marques")->fetchAll();
 
 // dd($marques);
 
+
+if (isset($_POST['marque_delete'])) {
+
+    $id = (int)$_POST['marque_id'];
+    $pdo->query("DELETE FROM marques WHERE id = $id");
+    $_SESSION['flash']['success'] = 'Bien supprimer';
+    header('Location: marques');
+    die();
+}
+
 $content_php = ob_get_clean();
 
 
@@ -50,10 +60,15 @@ ob_start(); ?>
                                     <i class="fas fa-wrench"></i>
                                     Modifier
                                 </a>
-                                <button type="button" class="btn btn-danger btn-sm">
-                                    <i class="fas fa-trash-alt"></i>
-                                    Supprimer
-                                </button>
+
+                                <form method="post" style="display: inline;">
+                                    <input type="hidden" name="marque_id" value="<?= $m->id ?>">
+                                    <button name="marque_delete" type="submit" class="btn btn-danger btn-sm">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Supprimer
+                                    </button>
+                                </form>
+
                             </td>
                         </tr>
                     <?php endforeach  ?>
