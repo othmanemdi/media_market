@@ -4,31 +4,34 @@
 // die();
 
 if (isset($_GET['page'])) {
-    $page = htmlspecialchars(trim($_GET['page']));
+    $get_page = htmlspecialchars(trim($_GET['page']));
 } else {
     // echo "Error";
     // die();
-    $page = "home";
+    $get_page = "home";
 }
 
-$pages_exp = explode('/', $page);
+$pages_exp = explode('/', $get_page);
 $page_exp_count = count($pages_exp);
 $admin = false;
 
 if ($page_exp_count == 2 && $pages_exp[0] === "admin") {
-    $get_page = $pages_exp[1];
+    $page = $pages_exp[1];
     $admin = true;
     $directory = 'pages/admin/';
     $pages = scandir('pages/admin/');
 } else {
-    $get_page = $page;
+    $page = $get_page;
     $pages = scandir('pages/');
     $directory = 'pages/';
 }
 
+// echo $page;
+// die();
+
 require_once "database/db.php";
 require_once "helpers/functions.php";
-$page_file = $get_page . ".php";
+$page_file = $page . ".php";
 
 // $pages = $admin ? scandir('pages/admin/') : scandir('pages/');
 
