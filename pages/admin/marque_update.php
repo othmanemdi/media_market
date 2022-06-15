@@ -82,52 +82,50 @@ ob_start(); ?>
 <h3 class="mb-3">Modifier <?= $marque_name ?></h3>
 
 
-<div class="row justify-content-md-center ">
-    <div class="col-6">
-        <div class="card shadow-sm">
-            <div class="card-header">
-                <h4>Modifier <?= $marque_name ?></h4>
+
+<div class="card shadow-sm">
+    <div class="card-header">
+        <h4>Modifier <?= $marque_name ?></h4>
+    </div>
+
+    <div class="card-body">
+        <a href="marques" class="btn btn-secondary mb-3">
+            <i class="fas fa-undo"></i>
+            Liste des marques
+        </a>
+
+        <?php if (!empty($errors)) : ?>
+            <div class="alert alert-danger shadow mb-4">
+                <h5>
+                    Vous n'avez pas rempli le formulaire correctement
+                </h5>
+
+                <ul class="list-group list-group-flush">
+                    <?php foreach ($errors as $key => $e) : ?>
+                        <li class="list-group-item bg-transparent">
+                            <b><?= ucfirst($key) ?></b> - <?= $e ?>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif ?>
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="nom" class="form-label">Marque</label>
+
+                <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" value="<?= $marque_name ?>" id="nom" placeholder="Nike">
+
+                <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
+                    <?= $errors['nom'] ?? "" ?>
+                </div>
             </div>
 
-            <div class="card-body">
-                <a href="marques" class="btn btn-secondary mb-3">
-                    <i class="fas fa-undo"></i>
-                    Liste des marques
-                </a>
+            <button type="submit" name="marque_update" class="btn btn-success">Modifier</button>
+        </form>
 
-                <?php if (!empty($errors)) : ?>
-                    <div class="alert alert-danger shadow mb-4">
-                        <h5>
-                            Vous n'avez pas rempli le formulaire correctement
-                        </h5>
-
-                        <ul class="list-group list-group-flush">
-                            <?php foreach ($errors as $key => $e) : ?>
-                                <li class="list-group-item bg-transparent">
-                                    <b><?= ucfirst($key) ?></b> - <?= $e ?>
-                                </li>
-                            <?php endforeach ?>
-                        </ul>
-                    </div>
-                <?php endif ?>
-
-                <form method="post">
-                    <div class="mb-3">
-                        <label for="nom" class="form-label">Marque</label>
-
-                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" value="<?= $marque_name ?>" id="nom" placeholder="Nike">
-
-                        <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
-                            <?= $errors['nom'] ?? "" ?>
-                        </div>
-                    </div>
-
-                    <button type="submit" name="marque_update" class="btn btn-success">Modifier</button>
-                </form>
-
-            </div>
-        </div>
     </div>
 </div>
+
 
 <?php $content_html = ob_get_clean(); ?>

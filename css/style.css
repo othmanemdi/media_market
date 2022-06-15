@@ -13,3 +13,95 @@
 
     border-radius: 50px;
 }
+
+.bg-kitea {
+    background-color: #ed1c24 !important;
+}
+
+.text-kitea {
+    color: #ed1c24 !important;
+}
+
+
+.dropdown-item:active {
+    color: #fff;
+    text-decoration: none;
+    background-color: #ed1c24 !important;
+}
+
+.form-control:focus {
+    border-color: #f57f72 !important;
+    box-shadow: 0 0 0 0.2rem rgb(217 35 15 / 25%) !important;
+}
+
+.text-kitea-hover:hover {
+    color: #ed1c24 !important;
+}
+
+/* .activated {
+    color: #ed1c24 !important;
+    font-weight: bold !important;
+} */
+
+
+/* Src https://www.w3schools.com/howto/howto_css_text_selection.asp */
+
+::-moz-selection {
+    /* Code for Firefox */
+    color: #ed1c24;
+    background: #fff1f1;
+}
+
+::selection {
+    color: #ed1c24;
+    background: #fff1f1;
+}
+
+
+.activated {
+    border-left: solid #212529 4px !important;
+    color: #212529 !important;
+    font-weight: bold !important;
+    /*dark bootstrap #212529*/
+    /*color electro #700a1a*/
+}
+
+.accordion-button:not(.collapsed) {
+    color: #212529 !important;
+    font-weight: bold !important;
+    background-color: #fff !important;
+}
+
+.accordion-button:focus {
+    border-color: #212529;
+    box-shadow: 0 0 0 0.1rem rgba(0, 0, 0, 0.20) !important;
+    border-radius: 4px;
+}
+
+.dropdown-item.active,
+.dropdown-item:active {
+    color: #fff !important;
+    text-decoration: none !important;
+    background-color: #ed1c24 !important;
+}
+
+
+.border-top-dark {
+    border-top: #212529 4px solid !important;
+}
+
+.border-top-success {
+    border-top: #198754 4px solid !important;
+}
+
+.border-top-info {
+    border-top: #0dcaf0 4px solid !important;
+}
+
+.border-top-warning {
+    border-top: #ffc107 4px solid !important;
+}
+
+.border-top-danger {
+    border-top: #dc3545 4px solid !important;
+}
