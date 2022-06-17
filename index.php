@@ -67,7 +67,7 @@ echo $content_php ?? "";
 
             <?php if (isset($_SESSION['flash'])) : ?>
                 <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
-                    <div class="alert alert-<?= $type; ?>">
+                    <div class="alert alert-<?= $type; ?> mt-3">
                         <?= $message; ?>
                     </div>
                 <?php endforeach; ?>
@@ -106,7 +106,7 @@ echo $content_php ?? "";
 
                 <?php if (isset($_SESSION['flash'])) : ?>
                     <?php foreach ($_SESSION['flash'] as $type => $message) : ?>
-                        <div class="alert alert-<?= $type; ?>">
+                        <div class="alert alert-<?= $type; ?> mt-3">
                             <?= $message; ?>
                         </div>
                     <?php endforeach; ?>

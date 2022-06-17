@@ -48,6 +48,11 @@
         Coupons code
     </a>
 
+    <a href="roles" class="list-group-item list-group-item-action <?= $page == "roles" ? "activated" : "" ?>">
+        Roles
+    </a>
+
+
     <a href="profile" class="list-group-item list-group-item-action <?= $page == "profile" ? "activated" : "" ?>">
         Profile
     </a>
