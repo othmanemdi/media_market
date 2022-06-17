@@ -79,8 +79,8 @@ if (isset($_POST['ajt_compte'])) {
     if (empty($errors)) {
         $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
 
-        $req = $pdo->prepare("INSERT INTO users SET prenom = ?, nom = ?, password = ?, email = ?");
-        $req->execute([$_POST['prenom'], $_POST['nom'], $password, $_POST['email']]);
+        $req = $pdo->prepare("INSERT INTO users SET prenom = ?, nom = ?, password = ?, email = ? , role_id = ?");
+        $req->execute([$_POST['prenom'], $_POST['nom'], $password, $_POST['email'], 3]);
         $user_id = $pdo->lastInsertId();
 
         $_SESSION['flash']['success'] = 'Bien enregister';

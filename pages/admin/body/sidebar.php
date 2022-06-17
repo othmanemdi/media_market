@@ -15,6 +15,10 @@
         Status des commandes
     </a>
 
+    <a href="fournisseurs" class="list-group-item list-group-item-action <?= $page == "fournisseurs" ? "activated" : "" ?>">
+        Fournisseurs
+    </a>
+
     <a href="stock" class="list-group-item list-group-item-action <?= $page == "stock" ? "activated" : "" ?>">
         Stock
     </a>

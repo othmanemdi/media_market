@@ -10,7 +10,7 @@ if (isset($_POST['login'])) {
         $input_email = htmlspecialchars(trim($_POST['email']));
         $input_password = htmlspecialchars(trim($_POST['password']));
 
-        $req = $pdo->prepare('SELECT * FROM users WHERE email = :email LIMIT 1');
+        $req = $pdo->prepare('SELECT * FROM users WHERE email = :email and activated = 1 LIMIT 1');
         $req->execute(['email' => $input_email]);
         $user = $req->fetch();
 
