@@ -15,3 +15,8 @@ function _string(string $value): string
 {
     return htmlspecialchars(strtolower(trim($value)));
 }
+
+function _numbrer_format(float $value): string
+{
+    return number_format($value, 2, ",", " ",);
+}

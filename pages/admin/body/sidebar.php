@@ -11,7 +11,7 @@
         Commandes
     </a>
 
-    <a href="status" class="list-group-item list-group-item-action <?= $page == "status" ? "activated" : "" ?>">
+    <a href="status_commande" class="list-group-item list-group-item-action <?= $page == "status_commande" ? "activated" : "" ?>">
         Status des commandes
     </a>
 
