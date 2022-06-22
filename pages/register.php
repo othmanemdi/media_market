@@ -148,7 +148,7 @@ ob_start(); ?>
                 <div class="form-group mb-3">
                     <label class="form-label" for="email">Adresse mail:</label>
 
-                    <input name="email" type="text" class="form-control <?= $email_class_input ?? "" ?>" id="email" name="email" placeholder="Veuillez saisir votre adresse mail SVP !" value="<?= $_POST['email'] ?? "" ?>">
+                    <input name="email" type="email" class="form-control <?= $email_class_input ?? "" ?>" id="email" placeholder="Veuillez saisir votre adresse mail SVP !" value="<?= $_POST['email'] ?? "" ?>">
 
                     <div class="<?= $email_class_feedback ?? "" ?> fw-bold">
                         <?= $errors['email'] ?? "" ?>

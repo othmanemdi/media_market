@@ -2,14 +2,14 @@
 
 ob_start();
 // php
-$title = "Clients";
+$title = "Fournisseurs";
 
-$clients = $pdo->query("SELECT * FROM users WHERE role_id = 3  ORDER BY id DESC;")->fetchAll();
+$fournisseurs = $pdo->query("SELECT * FROM users WHERE role_id = 2  ORDER BY id DESC;")->fetchAll();
 
-// dd($clients);
+// dd($fournisseurs);
 
 
-if (isset($_POST['client_add'])) {
+if (isset($_POST['fournisseur_add'])) {
 
     if (empty($_POST['prenom']) or !preg_match('/^[a-zA-Z]+$/', $_POST['prenom']) or strlen($_POST['prenom']) < 3) {
         // $errors["prenom"] = "Votre prénome n'est pas valide";
@@ -110,20 +110,18 @@ if (isset($_POST['client_add'])) {
                 $email,
                 $telephone,
                 $password,
-                3
+                2
             ]
         );
         // $user_id = $pdo->lastInsertId();
 
         $_SESSION['flash']['success'] = 'Bien enregister';
-        header('Location: clients');
+        header('Location: fournisseurs');
         exit();
     }
 }
 
-if (isset($_POST['client_update'])) {
-
-
+if (isset($_POST['fournisseur_update'])) {
 
     if (empty($_POST['prenom']) or !preg_match('/^[a-zA-Z]+$/', $_POST['prenom']) or strlen($_POST['prenom']) < 3) {
         // $errors["prenom"] = "Votre prénome n'est pas valide";
@@ -165,11 +163,11 @@ if (isset($_POST['client_update'])) {
     }
 
 
-    $id = (int)$_POST['client_id'];
+    $id = (int)$_POST['fournisseur_id'];
 
-    $client_role = $pdo->query("SELECT role_id FROM users WHERE id = $id LIMIT 1")->fetch()->role_id;
+    $fournisseur_role = $pdo->query("SELECT role_id FROM users WHERE id = $id LIMIT 1")->fetch()->role_id;
 
-    if ($client_role != 3) {
+    if ($fournisseur_role != 2) {
         $errors["role_id"] = "Error";
     }
 
@@ -182,7 +180,7 @@ if (isset($_POST['client_update'])) {
             prenom = :prenom,
             nom = :nom,
             telephone = :telephone
-            WHERE id = :id AND role_id = 3
+            WHERE id = :id AND role_id = 2
          ");
         $req_execute = $req->execute(
             [
@@ -195,14 +193,14 @@ if (isset($_POST['client_update'])) {
         // $user_id = $pdo->lastInsertId();
 
         $_SESSION['flash']['success'] = 'Bien modifier';
-        header('Location: clients');
+        header('Location: fournisseurs');
         exit();
     }
 }
 
-if (isset($_POST['client_desactivated'])) {
+if (isset($_POST['fournisseur_desactivated'])) {
 
-    $id = (int)$_POST['client_id'];
+    $id = (int)$_POST['fournisseur_id'];
     if ($id != 1) {
         $pdo->query("UPDATE users SET activated = 0 WHERE id = $id");
         $_SESSION['flash']['success'] = 'Bien désactivé';
@@ -210,13 +208,13 @@ if (isset($_POST['client_desactivated'])) {
         $_SESSION['flash']['danger'] = "Vous n'avez pas le droit de supprimer les données";
     }
 
-    header('Location: clients');
+    header('Location: fournisseurs');
     die();
 }
 
-if (isset($_POST['client_activated'])) {
+if (isset($_POST['fournisseur_activated'])) {
 
-    $id = (int)$_POST['client_id'];
+    $id = (int)$_POST['fournisseur_id'];
     if ($id != 1) {
         $pdo->query("UPDATE users SET activated = 1 WHERE id = $id");
         $_SESSION['flash']['success'] = 'Bien désactivé';
@@ -224,7 +222,7 @@ if (isset($_POST['client_activated'])) {
         $_SESSION['flash']['danger'] = "Vous n'avez pas le droit de supprimer les données";
     }
 
-    header('Location: clients');
+    header('Location: fournisseurs');
     die();
 }
 
@@ -232,12 +230,12 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h3>Clients</h3>
+<h3>Fournisseurs</h3>
 
 
 <div class="card shadow-sm">
     <div class="card-header">
-        <h4>Liste des clients</h4>
+        <h4>Liste des fournisseurs</h4>
     </div>
 
     <div class="card-body">
@@ -262,17 +260,17 @@ ob_start(); ?>
 
 
 
-        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#client_add">
+        <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#fournisseur_add">
             <i class="fas fa-plus"></i>
             Ajouter
         </button>
 
-        <div class="modal fade" id="client_add" tabindex="-1" aria-labelledby="client_addLabel" aria-hidden="true">
+        <div class="modal fade" id="fournisseur_add" tabindex="-1" aria-labelledby="fournisseur_addLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h6 class="modal-title" id="client_addLabel">
-                            <i class="fas fa-plus"></i> Ajouter un client
+                        <h6 class="modal-title" id="fournisseur_addLabel">
+                            <i class="fas fa-plus"></i> Ajouter un fournisseur
                         </h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
@@ -360,7 +358,7 @@ ob_start(); ?>
                                 <i class="fas fa-undo"></i>
                                 Retour
                             </button>
-                            <button type="submit" name="client_add" class="btn btn-primary">
+                            <button type="submit" name="fournisseur_add" class="btn btn-primary">
                                 <i class="fas fa-plus"></i>
                                 Ajouter
                             </button>
@@ -385,7 +383,7 @@ ob_start(); ?>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($clients as $key => $r) : ?>
+                    <?php foreach ($fournisseurs as $key => $r) : ?>
                         <tr>
                             <th>
                                 <?= $r->id ?>
@@ -410,16 +408,16 @@ ob_start(); ?>
                             <td>
 
 
-                                <button type="button" class="btn btn-outline-dark fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#client_update_<?= $r->id ?>">
+                                <button type="button" class="btn btn-outline-dark fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#fournisseur_update_<?= $r->id ?>">
                                     <i class="fas fa-wrench"></i>
                                     Modifier
                                 </button>
 
-                                <div class="modal fade" id="client_update_<?= $r->id ?>" tabindex="-1" aria-labelledby="client_update_<?= $r->id ?>Label" aria-hidden="true">
+                                <div class="modal fade" id="fournisseur_update_<?= $r->id ?>" tabindex="-1" aria-labelledby="fournisseur_update_<?= $r->id ?>Label" aria-hidden="true">
                                     <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h6 class="modal-title" id="client_update_<?= $r->id ?>Label">
+                                                <h6 class="modal-title" id="fournisseur_update_<?= $r->id ?>Label">
                                                     <i class="fas fa-wrench"></i>
                                                     Modifier <?= strtolower($r->nom) ?>
                                                 </h6>
@@ -468,8 +466,8 @@ ob_start(); ?>
                                                         <i class="fas fa-undo"></i>
                                                         Retour
                                                     </button>
-                                                    <input type="hidden" name="client_id" value="<?= $r->id ?>">
-                                                    <button type="submit" name="client_update" class="btn btn-dark">
+                                                    <input type="hidden" name="fournisseur_id" value="<?= $r->id ?>">
+                                                    <button type="submit" name="fournisseur_update" class="btn btn-dark">
                                                         <i class="fas fa-wrench"></i>
                                                         Modifier
                                                     </button>
@@ -482,12 +480,12 @@ ob_start(); ?>
 
                                 <?php if ($r->activated == 1) : ?>
 
-                                    <button type="button" class="btn btn-outline-danger fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#client_desactivated_<?= $r->id ?>">
+                                    <button type="button" class="btn btn-outline-danger fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#fournisseur_desactivated_<?= $r->id ?>">
                                         <i class="fas fa-trash-alt"></i>
                                         Désactivé
                                     </button>
 
-                                    <div class="modal fade" id="client_desactivated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
+                                    <div class="modal fade" id="fournisseur_desactivated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -507,8 +505,8 @@ ob_start(); ?>
                                                     </button>
 
                                                     <form method="post" style="display: inline;">
-                                                        <input type="hidden" name="client_id" value="<?= $r->id ?>">
-                                                        <button name="client_desactivated" type="submit" class="btn btn-danger">
+                                                        <input type="hidden" name="fournisseur_id" value="<?= $r->id ?>">
+                                                        <button name="fournisseur_desactivated" type="submit" class="btn btn-danger">
                                                             <i class="fas fa-trash-alt"></i>
                                                             Desactivé
                                                         </button>
@@ -518,12 +516,12 @@ ob_start(); ?>
                                         </div>
                                     </div>
                                 <?php else : ?>
-                                    <button type="button" class="btn btn-outline-success fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#client_activated_<?= $r->id ?>">
+                                    <button type="button" class="btn btn-outline-success fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#fournisseur_activated_<?= $r->id ?>">
                                         <i class="fas fa-trash-alt"></i>
                                         Activé
                                     </button>
 
-                                    <div class="modal fade" id="client_activated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
+                                    <div class="modal fade" id="fournisseur_activated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -543,8 +541,8 @@ ob_start(); ?>
                                                     </button>
 
                                                     <form method="post" style="display: inline;">
-                                                        <input type="hidden" name="client_id" value="<?= $r->id ?>">
-                                                        <button name="client_activated" type="submit" class="btn btn-success">
+                                                        <input type="hidden" name="fournisseur_id" value="<?= $r->id ?>">
+                                                        <button name="fournisseur_activated" type="submit" class="btn btn-success">
                                                             <i class="fas fa-trash-alt"></i>
                                                             Activé
                                                         </button>

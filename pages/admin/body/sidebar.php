@@ -61,7 +61,7 @@
         Profile
     </a>
 
-    <a class="list-group-item list-group-item-action text-danger fw-bold">
+    <a href="logout" class="list-group-item list-group-item-action text-danger fw-bold">
         Se déconnecter
     </a>
 </div>
