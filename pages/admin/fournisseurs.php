@@ -306,7 +306,7 @@ ob_start(); ?>
                                     <div class="form-group mb-3">
                                         <label class="form-label" for="email">Adresse mail:</label>
 
-                                        <input name="email" type="email" class="form-control <?= $email_class_input ?? "" ?>" id="email" name="email" placeholder="Email:" value="<?= $_POST['email'] ?? "" ?>">
+                                        <input name="email" type="email" class="form-control <?= $email_class_input ?? "" ?>" id="email" name="email" placeholder="Email:" value="@gmail.com">
 
                                         <div class="<?= $email_class_feedback ?? "" ?> fw-bold">
                                             <?= $errors['email'] ?? "" ?>
