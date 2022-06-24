@@ -4,125 +4,118 @@ ob_start();
 // php
 $title = "coupons";
 
-$coupon_code = $pdo->query("SELECT * FROM coupon_code ORDER BY id DESC;")->fetchAll();
+$coupons = $pdo->query("SELECT * FROM coupon_code ORDER BY id DESC;")->fetchAll();
 
-// dd($coupon_code);
+// dd($coupons);
 
 
 if (isset($_POST['coupon_add'])) {
-    $nom = _string($_POST['nom']);
-    $montant = _string($_POST['montant']);
-    $req = $pdo->prepare('SELECT id FROM coupon_code WHERE nom = ? LIMIT 1');
-    $req->execute([$nom]);
-    $maruqe = $req->fetch();
 
-    if (empty($_POST['nom']) or !preg_match('/^[0-9a-zA-Z ]+$/', $_POST['nom']) or $maruqe or strlen($_POST['nom']) < 2 or strlen($_POST['nom']) > 20) {
-
-        if (empty($_POST['nom'])) {
-            $errors["nom"] = "Veuillez saisir le nom de la coupon SVP ";
-        }
-        if (!preg_match('/^[0-9a-zA-Z ]+$/', $_POST['nom'])) {
-            $errors["nom"] = "Veuillez entrer des caractères alphabétique ";
-        }
-
-        if (strlen($_POST['nom']) < 2) {
-            $errors["nom"] = "Veuillez entrer plus que 1 caractère ";
-        }
-
-        if (strlen($_POST['nom']) > 20) {
-            $errors["nom"] = "Veuillez entrer moin que 20 caractères ";
-        }
-
-        if ($maruqe) {
-            $errors["nom"] = 'Cette coupon est déjà existe';
-        }
-
+    if (empty($_POST['nom']) || !preg_match('/^[a-zA-Z]+$/', $_POST['nom'])) {
+        $errors["nom"] = "Votre nom n'est pas valide";
         $nom_class_input = "is-invalid";
         $nom_class_feedback = "invalid-feedback";
+    } else {
+        $nom_class_input = "is-valid";
+        $nom_class_feedback = "valid-feedback";
     }
 
-    // dd($_POST['nom']);
-    // die();
-
+    if (empty($_POST['montant'])) {
+        $errors["montant"] = "Votre Montant n'est pas valide";
+        $montant_class_input = "is-invalid";
+        $montant_class_feedback = "invalid-feedback";
+    } else {
+        $montant_class_input = "is-valid";
+        $montant_class_feedback = "valid-feedback";
+    }
 
     if (empty($errors)) {
-        $user = $pdo->prepare("INSERT INTO coupon_code SET 
-                nom = :nom,
-                montant = :montant
-        ");
-        $user->execute(
+
+        $nom = _string($_POST['nom']);
+        $montant = floatval($_POST['montant']);
+        $req = $pdo->prepare("INSERT INTO coupon_code SET
+            nom = ?,
+            montant = ?
+         ");
+        $req->execute(
             [
-                'nom' => $nom,
-                'montant' => $montant
+                $nom,
+                $montant
             ]
         );
+        // $user_id = $pdo->lastInsertId();
+
         $_SESSION['flash']['success'] = 'Bien enregister';
         header('Location: coupons');
-        die();
+        exit();
     }
 }
-
 
 if (isset($_POST['coupon_update'])) {
 
-    $id = (int)$_POST['coupon_id'];
-    $nom = _string($_POST['nom']);
-    $montant = _string($_POST['montant']);
 
 
-    if (empty($_POST['nom']) or !preg_match('/^[0-9a-zA-Z ]+$/', $_POST['nom']) or  strlen($_POST['nom']) < 2 or strlen($_POST['nom']) > 20) {
-
-        if (empty($_POST['nom'])) {
-            $errors["nom"] = "Veuillez saisir le nom de la coupon SVP ";
-        }
-        if (!preg_match('/^[0-9a-zA-Z ]+$/', $_POST['nom'])) {
-            $errors["nom"] = "Veuillez entrer des caractères alphabétique ";
-        }
-
-        if (strlen($_POST['nom']) < 2) {
-            $errors["nom"] = "Veuillez entrer plus que 1 caractère ";
-        }
-
-        if (strlen($_POST['nom']) > 20) {
-            $errors["nom"] = "Veuillez entrer moin que 20 caractères ";
-        }
-
-
+    if (empty($_POST['nom']) || !preg_match('/^[a-zA-Z]+$/', $_POST['nom'])) {
+        $errors["nom"] = "Votre nom n'est pas valide";
         $nom_class_input = "is-invalid";
         $nom_class_feedback = "invalid-feedback";
+    } else {
+        $nom_class_input = "is-valid";
+        $nom_class_feedback = "valid-feedback";
     }
 
-    // dd($_POST['nom']);
+
+    // var_dump($montant);
     // die();
 
+    if (empty($_POST['montant'])) {
+        $errors["montant"] = "Votre Montant n'est pas valide";
+        $montant_class_input = "is-invalid";
+        $montant_class_feedback = "invalid-feedback";
+    } else {
+        $montant_class_input = "is-valid";
+        $montant_class_feedback = "valid-feedback";
+    }
+
+
+    $id = (int)$_POST['coupon_id'];
 
     if (empty($errors)) {
-        $user = $pdo->prepare("UPDATE coupon_code SET 
-                nom = :nom,montant = :montant WHERE id = :id
-        ");
-        $user->execute(
+        $nom = _string($_POST['nom']);
+        $montant = floatval($_POST['montant']);
+
+        $req = $pdo->prepare("UPDATE coupon_code SET
+            nom = :nom,
+            montant = :montant
+            WHERE id = :id
+         ");
+        $req_execute = $req->execute(
             [
-                'id' => $id,
                 'nom' => $nom,
-                'montant' => $montant
+                'montant' => $montant,
+                'id' => $id
             ]
         );
+        // $user_id = $pdo->lastInsertId();
+
         $_SESSION['flash']['success'] = 'Bien modifier';
         header('Location: coupons');
-        die();
+        exit();
     }
 }
 
-if (isset($_POST['coupon_delete'])) {
-
+if (isset($_POST['coupon_desactivated'])) {
     $id = (int)$_POST['coupon_id'];
-    if ($id > 3) {
-        $pdo->query("DELETE FROM coupon_code WHERE id = $id");
-        $_SESSION['flash']['success'] = 'Bien supprimer';
-    } else {
-        $_SESSION['flash']['danger'] = "Vous n'avez pas le droit de supprimer les données";
-    }
+    $pdo->query("UPDATE coupon_code SET activated = 0 WHERE id = $id");
+    $_SESSION['flash']['success'] = 'Bien désactivé';
+    header('Location: coupons');
+    die();
+}
 
+if (isset($_POST['coupon_activated'])) {
+    $id = (int)$_POST['coupon_id'];
+    $pdo->query("UPDATE coupon_code SET activated = 1 WHERE id = $id");
+    $_SESSION['flash']['success'] = 'Bien désactivé';
     header('Location: coupons');
     die();
 }
@@ -136,7 +129,7 @@ ob_start(); ?>
 
 <div class="card shadow-sm">
     <div class="card-header">
-        <h4>Liste des coupons code</h4>
+        <h4>Liste des coupons codes</h4>
     </div>
 
     <div class="card-body">
@@ -160,42 +153,52 @@ ob_start(); ?>
         <?php endif ?>
 
 
-
         <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#coupon_add">
             <i class="fas fa-plus"></i>
             Ajouter
         </button>
 
         <div class="modal fade" id="coupon_add" tabindex="-1" aria-labelledby="coupon_addLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h6 class="modal-title" id="coupon_addLabel">
-                            <i class="fas fa-plus"></i> Ajouter un status
+                            <i class="fas fa-plus"></i> Ajouter un coupon
                         </h6>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <form method="post">
+                    <form method="post" autocomplete="off">
                         <div class="modal-body">
+                            <div class="row">
 
-                            <div class="mb-3">
-                                <label for="nom" class="form-label">Status</label>
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" for="nom">Nom:</label>
 
-                                <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Client">
+                                        <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Nom:" value="<?= $_POST['nom'] ?? "" ?>">
 
-                                <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
-                                    <?= $errors['nom'] ?? "" ?>
+                                        <div class="<?= $nom_class_feedback ?? "" ?> fw-bold">
+                                            <?= $errors['nom'] ?? "" ?>
+                                        </div>
+                                    </div>
                                 </div>
+                                <!-- col -->
+
+                                <div class="col-md-4">
+                                    <div class="form-group mb-3">
+                                        <label class="form-label" for="email">Montant:</label>
+
+                                        <input name="montant" type="text" class="form-control <?= $montant_class_input ?? "" ?>" id="montant" name="montant" placeholder="Montant:" value="<?= $_POST['montant'] ?? "" ?>">
+
+                                        <div class="<?= $montant_class_feedback ?? "" ?> fw-bold">
+                                            <?= $errors['montant'] ?? "" ?>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- col -->
+
                             </div>
-
-                            <div class="mb-3">
-
-                                <label for="nom" class="form-label">Montant</label>
-
-                                <input name="montant" type="text" class="form-control" id="montant" placeholder="Montant">
-
-                            </div>
-
+                            <!-- row -->
 
                         </div>
                         <div class="modal-footer">
@@ -219,66 +222,86 @@ ob_start(); ?>
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Coupon</th>
+                        <th>Nom</th>
                         <th>Montant</th>
+                        <th>Status</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($coupon_code as $key => $s) : ?>
+                    <?php foreach ($coupons as $key => $r) : ?>
                         <tr>
                             <th>
-                                <?= $s->id ?>
+                                <?= $r->id ?>
                             </th>
+
                             <td>
-                                <?= strtoupper($s->nom) ?>
+                                <?= strtoupper($r->nom) ?>
+                            </td>
+
+                            <td>
+                                <?= $r->montant ?>
                             </td>
                             <td>
-                                <?= _numbrer_format($s->montant) ?>
+
+                                <span class=" text-<?= $r->activated ? "success" : "danger" ?>">
+                                    <i class="fas fa-<?= $r->activated ? "check-circle" : "times-circle" ?>"></i>
+                                </span>
+
                             </td>
                             <td>
 
 
-                                <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#coupon_update_<?= $s->id ?>">
+                                <button type="button" class="btn btn-outline-dark fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#coupon_update_<?= $r->id ?>">
                                     <i class="fas fa-wrench"></i>
                                     Modifier
                                 </button>
 
-                                <div class="modal fade" id="coupon_update_<?= $s->id ?>" tabindex="-1" aria-labelledby="coupon_update_<?= $s->id ?>Label" aria-hidden="true">
-                                    <div class="modal-dialog">
+                                <div class="modal fade" id="coupon_update_<?= $r->id ?>" tabindex="-1" aria-labelledby="coupon_update_<?= $r->id ?>Label" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h6 class="modal-title" id="coupon_update_<?= $s->id ?>Label">
+                                                <h6 class="modal-title" id="coupon_update_<?= $r->id ?>Label">
                                                     <i class="fas fa-wrench"></i>
-                                                    Modifier <?= strtolower($s->nom) ?>
+                                                    Modifier <?= strtolower($r->nom) ?>
                                                 </h6>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <form method="post">
                                                 <div class="modal-body">
 
-                                                    <div class="mb-3">
-                                                        <label for="nom" class="form-label">Coupon</label>
+                                                    <div class="row">
 
-                                                        <input name="nom" type="text" class="form-control" id="nom" value="<?= strtoupper($s->nom) ?>" placeholder="Coupon">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group mb-3">
+                                                                <label class="form-label" for="nom">Nom:</label>
+
+                                                                <input name="nom" type="text" class="form-control" id="nom" placeholder="Nom:" value="<?= strtoupper($r->nom) ?>">
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- col -->
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group mb-3">
+                                                                <label class="form-label" for="email">Montant:</label>
+
+                                                                <input name="montant" type="text" class="form-control" id="montant" name="montant" placeholder="Montant:" value="<?= $r->montant ?>">
+
+                                                            </div>
+                                                        </div>
+                                                        <!-- col -->
+
 
                                                     </div>
-
-                                                    <div class="mb-3">
-                                                        <label for="nom" class="form-label">Montant</label>
-
-                                                        <input name="montant" type="text" class="form-control" id="montant" value="<?= $s->montant ?>" placeholder="Montant">
-
-                                                    </div>
-
-
+                                                    <!-- row -->
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                         <i class="fas fa-undo"></i>
                                                         Retour
                                                     </button>
-                                                    <input type="hidden" name="coupon_id" value="<?= $s->id ?>">
+                                                    <input type="hidden" name="coupon_id" value="<?= $r->id ?>">
                                                     <button type="submit" name="coupon_update" class="btn btn-dark">
                                                         <i class="fas fa-wrench"></i>
                                                         Modifier
@@ -290,42 +313,85 @@ ob_start(); ?>
                                 </div>
 
 
+                                <?php if ($r->activated == 1) : ?>
 
-                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#coupon_delete_<?= $s->id ?>">
-                                    <i class="fas fa-trash-alt"></i>
-                                    Supprimer
-                                </button>
+                                    <button type="button" class="btn btn-outline-danger fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#coupon_desactivated_<?= $r->id ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Désactivé
+                                    </button>
 
-                                <div class="modal fade" id="coupon_delete_<?= $s->id ?>" tabindex="-1" aria-labelledby="label_<?= $s->id ?>" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="label_<?= $s->id ?>">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                    Supprimer
-                                                </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="text-danger fw-bold h5"> Voulez vous vraiment supprimer <?= strtoupper($s->nom) ?> ?</div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-                                                    <i class="fas fa-undo"></i>
-                                                    Retour
-                                                </button>
-
-                                                <form method="post" style="display: inline;">
-                                                    <input type="hidden" name="coupon_id" value="<?= $s->id ?>">
-                                                    <button name="coupon_delete" type="submit" class="btn btn-danger">
+                                    <div class="modal fade" id="coupon_desactivated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_<?= $r->id ?>">
                                                         <i class="fas fa-trash-alt"></i>
-                                                        Supprimer
+                                                        Désactivé
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="text-danger fw-bold h5"> Voulez vous vraiment désactiver <?= ucfirst($r->nom) ?> ?</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        <i class="fas fa-undo"></i>
+                                                        Retour
                                                     </button>
-                                                </form>
+
+                                                    <form method="post" style="display: inline;">
+                                                        <input type="hidden" name="coupon_id" value="<?= $r->id ?>">
+                                                        <button name="coupon_desactivated" type="submit" class="btn btn-danger">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                            Desactivé
+                                                        </button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                <?php else : ?>
+                                    <button type="button" class="btn btn-outline-success fw-bold btn-sm" data-bs-toggle="modal" data-bs-target="#coupon_activated_<?= $r->id ?>">
+                                        <i class="fas fa-trash-alt"></i>
+                                        Activé
+                                    </button>
+
+                                    <div class="modal fade" id="coupon_activated_<?= $r->id ?>" tabindex="-1" aria-labelledby="label_<?= $r->id ?>" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="label_<?= $r->id ?>">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                        Activé
+                                                    </h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="text-success fw-bold h5"> Voulez vous vraiment activé <?= ucfirst($r->nom) ?> ?</div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                                        <i class="fas fa-undo"></i>
+                                                        Retour
+                                                    </button>
+
+                                                    <form method="post" style="display: inline;">
+                                                        <input type="hidden" name="coupon_id" value="<?= $r->id ?>">
+                                                        <button name="coupon_activated" type="submit" class="btn btn-success">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                            Activé
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php endif ?>
+
+
+
+
+
 
 
 
