@@ -31,6 +31,7 @@ ob_start(); ?>
 
 <h3>Liste of product</h3>
 
+
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm table-stripeda text-nowrapa">
         <thead>
@@ -105,46 +106,34 @@ ob_start(); ?>
                                         <div class="row">
                                             <div class="col-md-5">
 
-
-
-                                                <div id="carousel_<?= $p->product_id ?>" class="carousel slide" data-bs-ride="true">
+                                                <div id="carouselDark_<?= $p->product_id ?>" class="carousel carousel-dark slide" data-bs-ride="carousel">
                                                     <div class="carousel-indicators">
-
-
-                                                        <?php foreach ($images as $k => $img) : ?>
-                                                            <?php if ($k == 0) : ?>
-                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $k ?>" class="active" aria-current="true" aria-label="Slide <?= $k + 1 ?>"></button>
+                                                        <?php for ($i = 0; $i < count($images); $i++) : ?>
+                                                            <?php if ($i == 0) : ?>
+                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" class="active" aria-current="true" aria-label="Slide <?= $i + 1 ?>"></button>
                                                             <?php else : ?>
-                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $k ?>" aria-label="Slide <?= $k + 1 ?>"></button>
+                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" aria-label="Slide <?= $i + 1 ?>"></button>
                                                             <?php endif ?>
+                                                        <?php endfor  ?>
 
-                                                        <?php endforeach  ?>
                                                     </div>
                                                     <div class="carousel-inner">
-                                                        <?php foreach ($images as $k2 => $img) : ?>
-                                                            <div class="carousel-item <?= $k2 == 0 ? 'active' : '' ?>" data-bs-interval="500">
+
+                                                        <?php foreach ($images as $k => $img) : ?>
+                                                            <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>" data-bs-interval="1000">
                                                                 <img src="../images/products/<?= $img->nom ?>" class="d-block w-100" alt="...">
                                                             </div>
                                                         <?php endforeach  ?>
-
                                                     </div>
-                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide="prev">
+                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="prev">
                                                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Previous</span>
                                                     </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide="next">
+                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="next">
                                                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Next</span>
                                                     </button>
                                                 </div>
-
-
-
-
-
-
-
-
 
                                             </div>
 
