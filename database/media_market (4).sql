@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 24 juin 2022 à 23:15
+-- Généré le : jeu. 30 juin 2022 à 01:40
 -- Version du serveur :  10.4.19-MariaDB
 -- Version de PHP : 8.0.6
 
@@ -118,7 +118,8 @@ INSERT INTO `marques` (`id`, `nom`) VALUES
 (6, 'msi'),
 (7, 'razer'),
 (8, 'lenovo'),
-(22, 'razer');
+(22, 'razer'),
+(39, 'ciel');
 
 -- --------------------------------------------------------
 
@@ -144,7 +145,10 @@ CREATE TABLE `products` (
 
 INSERT INTO `products` (`id`, `nom`, `reference`, `prix`, `ancien_prix`, `marque_id`, `categorie_id`, `couleur_id`, `activated`) VALUES
 (1, 'Apple iMac 24\" (Puce M1 8CPU/8GPU/8Go/512Go SSD) - Rose', 'PROD08886', 22999.00, 23990.00, 1, 2, 10, 0),
-(2, 'Apple iMac 24\" (Puce M1 8CPU/8GPU/8Go/512 Go SSD) - Bleu', 'PROD08887', 22999.00, 23990.00, 1, 2, 1, 0);
+(2, 'Apple iMac 24\" (Puce M1 8CPU/8GPU/8Go/512 Go SSD) - Bleu', 'PROD08886', 22999.00, 23990.00, 1, 2, 1, 0),
+(3, 'Apple iPhone 13 Pro Max (128GO) - Bleu Alpin', 'PROD01379', 14999.00, 15290.00, 1, 3, 1, 0),
+(4, 'Apple iPhone 13 Pro Max (128GO) - Doré', 'PROD01379', 14999.00, 15290.00, 1, 3, 5, 0),
+(5, 'apple imac 24&quot; (puce m1 8cpu/8gpu/8go/512go ssd) - vert', 'prod08886', 22999.00, 23990.00, 1, 2, 7, 1);
 
 -- --------------------------------------------------------
 
@@ -168,7 +172,14 @@ INSERT INTO `product_images` (`id`, `product_id`, `nom`, `ranking`) VALUES
 (2, 1, '023768EA-DE02-892B-310E-55B18B8581FE.jpg', 2),
 (3, 1, '1D609E4F-BD95-FC97-9C45-AC4E28830295.jpg', 3),
 (4, 2, '11930-5ooYkGmk.jpg', 1),
-(5, 2, '0E25A3E6-DAA5-D3FF-7052-F1E6626B573F.jpg', 2);
+(5, 2, '0E25A3E6-DAA5-D3FF-7052-F1E6626B573F.jpg', 2),
+(6, 3, '11589-D20GiliT.jpg', 1),
+(7, 3, '06D9F02F-F006-22F1-1347-BD796934B1DE.jpg', 2),
+(8, 3, '12EB1A76-5A86-E4EF-5FE1-6EFCAA6D0425.jpg', 3),
+(9, 3, '48AF08E9-A709-7672-50AE-E4F9074AB22F.jpg', 4),
+(10, 3, '48C42401-38B8-FD21-585E-6707AFEAC339.jpg', 5),
+(11, 4, '11590-ydEW7iBK.jpg', 1),
+(12, 4, '0B903AC8-140C-5C31-75B1-FF1FBCB9DBB6.jpg', 2);
 
 -- --------------------------------------------------------
 
@@ -188,8 +199,8 @@ CREATE TABLE `roles` (
 INSERT INTO `roles` (`id`, `nom`) VALUES
 (1, 'admin'),
 (2, 'fournisseur'),
-(4, 'commercial'),
-(5, 'client');
+(3, 'client'),
+(4, 'commercial');
 
 -- --------------------------------------------------------
 
@@ -235,7 +246,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `prenom`, `nom`, `telephone`, `email`, `password`, `role_id`, `activated`) VALUES
 (1, 'othmane', 'mdi', '0606060606', 'othmane@gmail.com', '$2y$10$RG7XksMHbKIICIyhYOVG6.caDWVgyQC5pXYkC3TnCgTfL4rvQSqAK', 1, 1),
-(15, 'maryam', 'bouchouaruti', '066554685', 'maryam@gmail.com', '123456', 5, 1);
+(15, 'maryam', 'bouchouaruti', '066554685', 'maryam@gmail.com', '123456', 3, 1),
+(16, 'ciel', 'cocacola', '0539935544', 'cocacola@gmail.com', '123456', 2, 0),
+(18, 'oumaima', 'oumaima', '0655447788', 'oumaima@gmail.com', '123456', 3, 1);
 
 --
 -- Index pour les tables déchargées
@@ -326,25 +339,25 @@ ALTER TABLE `coupon_code`
 -- AUTO_INCREMENT pour la table `marques`
 --
 ALTER TABLE `marques`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT pour la table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
 --
 ALTER TABLE `roles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `status_commande`
@@ -356,7 +369,7 @@ ALTER TABLE `status_commande`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Contraintes pour les tables déchargées

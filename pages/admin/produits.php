@@ -32,6 +32,11 @@ ob_start(); ?>
 <h3>Liste of product</h3>
 
 
+<a href="produit_add" class="btn btn-primary mb-3">
+    Ajouter
+</a>
+
+
 <div class="table-responsive">
     <table class="table table-bordered table-hover table-sm table-stripeda text-nowrapa">
         <thead>
