@@ -31,7 +31,8 @@
         Sorties
     </a>
 
-    <a href="produits" class="list-group-item list-group-item-action <?= $page == "produits" ? "activated" : "" ?>">
+    <a href="produits" class="list-group-item list-group-item-action <?= in_array($page, ["produits", "produit_add", "product_update"]) ? "activated" : "" ?>
+     ">
         Produits
     </a>
 

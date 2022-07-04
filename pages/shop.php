@@ -20,7 +20,7 @@ $products = $pdo->query("SELECT
         LEFT JOIN marques m ON m.id = p.marque_id
         LEFT JOIN categories c ON c.id = p.categorie_id
         LEFT JOIN couleurs cr ON cr.id = p.couleur_id
-
+    WHERE p.activated = 1
   ORDER BY p.id DESC;")->fetchAll();
 
 
@@ -217,7 +217,8 @@ ob_start(); ?>
             <?php foreach ($products as $key => $p) : ?>
 
                 <?php
-                $image = $pdo->query("SELECT nom FROM product_images WHERE product_id = $p->product_id and ranking = 1  LIMIT 1;")->fetch()->nom;
+                $image = $pdo->query("SELECT nom FROM product_images WHERE product_id = $p->product_id and ranking = 1 LIMIT 1;")->fetch();
+                $image = $image->nom ?? "1.jpg";
 
 
                 ?>
@@ -226,7 +227,7 @@ ob_start(); ?>
 
                     <div class="card mb-3">
                         <a href="product_details&id=<?= $p->product_id ?>">
-                            <img src="images/products/<?= $image ?>" class="card-img-top" height="350" alt="Test Image">
+                            <img src="images/products/<?= $image  ?>" class="card-img-top" height="350" alt="Test Image">
                         </a>
 
                         <div class="card-body">

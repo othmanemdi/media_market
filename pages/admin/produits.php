@@ -56,7 +56,10 @@ ob_start(); ?>
             <?php foreach ($products as $key => $p) : ?>
 
                 <?php
-                $image = $pdo->query("SELECT nom FROM product_images WHERE product_id = $p->product_id and ranking = 1  LIMIT 1;")->fetch()->nom;
+
+                $image = $pdo->query("SELECT nom FROM product_images WHERE product_id = $p->product_id and ranking = 1 LIMIT 1;")->fetch();
+
+                $image = $image->nom ?? "1.jpg";
 
                 $images = $pdo->query("SELECT id,nom FROM product_images WHERE product_id = $p->product_id ORDER BY ranking ASC;")->fetchAll();
 
@@ -111,34 +114,40 @@ ob_start(); ?>
                                         <div class="row">
                                             <div class="col-md-5">
 
-                                                <div id="carouselDark_<?= $p->product_id ?>" class="carousel carousel-dark slide" data-bs-ride="carousel">
-                                                    <div class="carousel-indicators">
-                                                        <?php for ($i = 0; $i < count($images); $i++) : ?>
-                                                            <?php if ($i == 0) : ?>
-                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" class="active" aria-current="true" aria-label="Slide <?= $i + 1 ?>"></button>
-                                                            <?php else : ?>
-                                                                <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" aria-label="Slide <?= $i + 1 ?>"></button>
-                                                            <?php endif ?>
-                                                        <?php endfor  ?>
 
-                                                    </div>
-                                                    <div class="carousel-inner">
+                                                <?php if (!empty($images)) : ?>
+                                                    <div id="carouselDark_<?= $p->product_id ?>" class="carousel carousel-dark slide" data-bs-ride="carousel">
+                                                        <div class="carousel-indicators">
+                                                            <?php for ($i = 0; $i < count($images); $i++) : ?>
+                                                                <?php if ($i == 0) : ?>
+                                                                    <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" class="active" aria-current="true" aria-label="Slide <?= $i + 1 ?>"></button>
+                                                                <?php else : ?>
+                                                                    <button type="button" data-bs-target="#carousel_<?= $p->product_id ?>" data-bs-slide-to="<?= $i ?>" aria-label="Slide <?= $i + 1 ?>"></button>
+                                                                <?php endif ?>
+                                                            <?php endfor  ?>
 
-                                                        <?php foreach ($images as $k => $img) : ?>
-                                                            <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>" data-bs-interval="1000">
-                                                                <img src="../images/products/<?= $img->nom ?>" class="d-block w-100" alt="...">
-                                                            </div>
-                                                        <?php endforeach  ?>
+                                                        </div>
+                                                        <div class="carousel-inner">
+
+                                                            <?php foreach ($images as $k => $img) : ?>
+                                                                <div class="carousel-item <?= $k == 0 ? 'active' : '' ?>" data-bs-interval="1000">
+                                                                    <img src="../images/products/<?= $img->nom ?>" class="d-block w-100" alt="...">
+                                                                </div>
+                                                            <?php endforeach  ?>
+                                                        </div>
+                                                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Next</span>
+                                                        </button>
                                                     </div>
-                                                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="prev">
-                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Previous</span>
-                                                    </button>
-                                                    <button class="carousel-control-next" type="button" data-bs-target="#carouselDark_<?= $p->product_id ?>" data-bs-slide="next">
-                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                                        <span class="visually-hidden">Next</span>
-                                                    </button>
-                                                </div>
+                                                <?php else : ?>
+                                                    <img src="../images/products/1.jpg" class="img-thumbnail" alt="...">
+                                                <?php endif ?>
+
 
                                             </div>
 
@@ -213,9 +222,9 @@ ob_start(); ?>
                                 </div>
                             </div>
                         </div>
-                        <button class="btn btn-sm btn-dark">
+                        <a href="product_update&id=<?= $p->product_id ?>" class="btn btn-sm btn-dark">
                             <i class="fa-solid fa-wrench"></i>
-                        </button>
+                        </a>
                         <button class="btn btn-sm btn-danger">
                             <i class="fa-solid fa-trash-can"></i>
                         </button>
