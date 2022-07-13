@@ -45,8 +45,6 @@ ob_start(); ?>
                 <th>Img</th>
                 <th>Référence</th>
                 <th>Nom</th>
-                <th>Marque</th>
-                <th>Couleur</th>
                 <th>Activated</th>
                 <th>Actions</th>
             </tr>
@@ -79,14 +77,6 @@ ob_start(); ?>
                     </td>
 
 
-                    <td>
-                        <?= strtoupper($p->marque_nom) ?>
-                    </td>
-
-
-                    <td>
-                        <?= strtoupper($p->couleur_nom) ?>
-                    </td>
                     <td>
                         <span class=" text-<?= $p->activated ? "success" : "danger" ?>">
                             <i class="fas fa-<?= $p->activated ? "check-circle" : "times-circle" ?>"></i>

@@ -1,3 +1,16 @@
+<?php
+
+$ip_server = IP_SERVER;
+
+$cart_count = $pdo->prepare("SELECT SUM(pp.qt) As qt_panier FROM paniers p 
+    LEFT JOIN panier_produits pp ON pp.panier_id = p.id
+    WHERE p.ip = :ip LIMIT 1 ");
+
+$cart_count->execute(['ip' => $ip_server]);
+
+$qt_panier = $cart_count->fetch()->qt_panier ?? 0;
+?>
+
 <div class="container mt-4">
     <div class="row">
         <div class="col-auto me-auto mb-3">
@@ -13,7 +26,7 @@
                 </button>
             </div>
         </div>
-
+        <!-- 
         <div class="col-auto mb-4">
             <div class="ms-4 mt-3">
                 <a href="cart" class="position-relative text-dark">
@@ -35,7 +48,7 @@
                     </span>
                 </a>
             </div>
-        </div>
+        </div> -->
 
 
         <div class="col-auto mb-3">
@@ -43,16 +56,11 @@
                 <a href="cart" class="position-relative text-dark">
                     <i class="fas fa-shopping-cart fs-5"></i>
                     <span class="position-absolute top-75 start-150 translate-middle badge bg-info rounded-pill">
-                        3
+                        <?= $qt_panier ?>
                     </span>
-
                 </a>
-
-
             </div>
         </div>
 
     </div>
 </div>
-
-

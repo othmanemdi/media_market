@@ -4,6 +4,72 @@ ob_start();
 // php
 $title = "Shop";
 
+if (isset($_POST['add_to_cart'])) {
+    $ip_server = IP_SERVER;
+    $produit_id = (int)$_POST['produit_id'];
+    $prix = (float)$_POST['prix'];
+
+    $paniers = $pdo->query("SELECT id FROM paniers WHERE ip = '$ip_server' LIMIT 1")->fetch();
+
+    if (!$paniers) {
+        $panier = $pdo->prepare("INSERT INTO paniers SET ip = :ip");
+        $panier->execute(
+            ['ip' => $ip_server]
+        );
+        $panier_id = $pdo->lastInsertId();
+    } else
+        $panier_id = $paniers->id;
+
+    $check_product_if_exist = $pdo->prepare("SELECT id FROM panier_produits
+    WHERE panier_id  = :panier_id AND produit_id = :produit_id LIMIT 1");
+
+    $check_product_if_exist->execute(['panier_id' => $panier_id, 'produit_id' => $produit_id]);
+
+    if ($check_product_if_exist->fetch()) {
+        // echo "Update";
+        $panier_produits = $pdo->prepare("UPDATE panier_produits 
+                SET
+                qt = qt + 1
+                WHERE panier_id = :panier_id AND produit_id = :produit_id
+        ");
+        $panier_produits->execute(
+            [
+                'panier_id' => $panier_id,
+                'produit_id' => $produit_id,
+            ]
+        );
+    } else {
+        // echo "Add";
+
+        $panier_produits = $pdo->prepare("INSERT INTO panier_produits 
+            SET
+            panier_id = :panier_id,
+            produit_id = :produit_id,
+            prix = :prix
+     ");
+        $panier_produits->execute(
+            [
+                'panier_id' => $panier_id,
+                'produit_id' => $produit_id,
+                'prix' => $prix
+            ]
+        );
+    }
+
+    $_SESSION['flash']['success'] = 'Bien ajouter';
+    header('Location: cart');
+    die();
+}
+
+
+
+
+
+
+
+
+
+
 $products = $pdo->query("SELECT 
     p.id As product_id,
     p.nom As product_nom,
@@ -24,20 +90,31 @@ $products = $pdo->query("SELECT
   ORDER BY p.id DESC;")->fetchAll();
 
 
+
+
+
+
 // $products = glob('images/products/*.jpg');
 
-$couleurs = [];
-$couleurs[] = "Gray";
-$couleurs[] = "Brown";
-$couleurs[] = "Black";
-$couleurs[] = "Blue";
-$couleurs[] = "Yellow";
-$couleurs[] = "Red";
-$couleurs[] = "Green";
-$couleurs[] = "Pink";
-$couleurs[] = "Purple";
-$couleurs[] = "Orange";
-$couleurs[] = "White";
+// $couleurs = [];
+// $couleurs[] = "Gray";
+// $couleurs[] = "Brown";
+// $couleurs[] = "Black";
+// $couleurs[] = "Blue";
+// $couleurs[] = "Yellow";
+// $couleurs[] = "Red";
+// $couleurs[] = "Green";
+// $couleurs[] = "Pink";
+// $couleurs[] = "Purple";
+// $couleurs[] = "Orange";
+// $couleurs[] = "White";
+
+
+
+$marques = $pdo->query("SELECT * FROM marques ")->fetchAll();
+$categories = $pdo->query("SELECT * FROM categories")->fetchAll();
+$couleurs = $pdo->query("SELECT * FROM couleurs ")->fetchAll();
+
 
 $content_php = ob_get_clean();
 
@@ -56,6 +133,25 @@ ob_start(); ?>
 
             <div class="accordion" id="accordionExample">
                 <div class="accordion-item mb-0 border-0 ronded mb-3">
+                    <h2 class="accordion-header" id="headingZero">
+                        <button class="accordion-button p-0 px-4 py-1 bg-transparent text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZero" aria-expanded="true" aria-controls="collapseZero">
+                            <div class="fw-bold h5 text-dark">MARQUES</div>
+                        </button>
+                    </h2>
+                    <div id="collapseZero" class="accordion-collapse collapse show" aria-labelledby="headingZero">
+                        <div class="accordion-body">
+                            <ul class="list-group list-group-flush">
+                                <?php foreach ($marques as $key => $m) : ?>
+                                    <li class="list-group-item text-uppercase">
+                                        <?= strtoupper($m->nom) ?>
+                                    </li>
+                                <?php endforeach  ?>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="accordion-item mb-0 border-0 ronded mb-3">
                     <h2 class="accordion-header" id="headingOne">
                         <button class="accordion-button p-0 px-4 py-1 bg-transparent text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                             <div class="fw-bold h5 text-dark">CATÉGORIE</div>
@@ -64,49 +160,15 @@ ob_start(); ?>
                     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne">
                         <div class="accordion-body">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item">
-                                    Salon
-                                    <small> (156) </small>
-                                </li>
-                                <li class="list-group-item">
-                                    Salle à manger
-                                    <small> (156) </small>
-                                </li>
-                                <li class="list-group-item">
-                                    Chambre à coucher
-                                    <small> (156) </small>
-                                </li>
-
-                                <li class="list-group-item">
-                                    Chambre enfant
-                                    <small> (156) </small>
-                                </li>
-
-                                <li class="list-group-item">
-                                    Chambre bébé
-                                    <small> (156) </small>
-                                </li>
-
-                                <li class="list-group-item">
-                                    Rangement
-                                    <small> (156) </small>
-                                </li>
-
-                                <li class="list-group-item">
-                                    Mobilier pro
-                                    <small> (156) </small>
-                                </li>
-
-                                <li class="list-group-item">
-                                    Jardin
-                                    <small> (156) </small>
-                                </li>
+                                <?php foreach ($categories as $key => $m) : ?>
+                                    <li class="list-group-item text-uppercase">
+                                        <?= strtoupper($m->nom) ?>
+                                    </li>
+                                <?php endforeach  ?>
                             </ul>
-
                         </div>
                     </div>
                 </div>
-
 
                 <div class="accordion-item mb-0 border-0 ronded mb-3">
                     <h2 class="accordion-header" id="headingTwo">
@@ -119,12 +181,12 @@ ob_start(); ?>
 
 
                             <div class="row">
-                                <?php foreach ($couleurs as $key => $c) : ?>
+                                <?php foreach ($couleurs as $key => $m) : ?>
 
                                     <div class="col-md-6 mb-2">
-                                        <a href="shop&color=<?= $c ?>" class="text-dark text-decoration-none text-kitea-hover">
-                                            <span class="d-inline-block rounded-circle" style="width: 12px; height: 12px; background-color :<?= $c ?>; border: solid #000 0.5px"></span>
-                                            <span class="fw-bold"><?= $c ?></span>
+                                        <a href="shop&color=<?= strtoupper($m->nom) ?>" class="text-dark text-decoration-none text-kitea-hover">
+                                            <span class="d-inline-block rounded-circle" style="width: 12px; height: 12px; background-color : <?= strtoupper($m->nom) ?>; border: solid #000 0.5px"></span>
+                                            <span class="fw-bold"><?= strtoupper($m->nom) ?></span>
                                         </a>
                                     </div>
                                 <?php endforeach ?>
@@ -135,78 +197,7 @@ ob_start(); ?>
                 </div>
 
 
-                <div class="accordion-item mb-3 border-0 ronded">
-                    <h2 class="accordion-header" id="heading_3">
-                        <button class="accordion-button collapsed p-0 px-4 py-1 bg-transparent text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_3" aria-expanded="false" aria-controls="collapse_3">
-                            <div class="fw-bold h5 text-dark">Price</div>
-                        </button>
-                    </h2>
-                    <div id="collapse_3" class="accordion-collapse collapse show" aria-labelledby="heading_3">
-                        <div class=" accordion-body">
-
-                            <input type="range" class="form-range" min="0" max="5" id="customRange2">
-                            <div class="row">
-                                <div class="col">
-                                    <input type="number" class="form-control" value="0" name="" id="">
-                                </div>
-
-                                <div class="col">
-                                    <input type="number" class="form-control" value="60" name="" id="">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-            <h5 class="my-3">Catégories</h5>
-            <ul class="list-group list-group-flush">
-
-                <li class="list-group-item">
-                    Salon</a>
-                    <small> (156) </small>
-                </li>
-                <li class="list-group-item">
-                    Salle à manger</a>
-                    <small> (156) </small>
-                </li>
-                <li class="list-group-item">
-                    Chambre à coucher</a>
-                    <small> (156) </small>
-                </li>
-
-                <li class="list-group-item">
-                    Chambre enfant</a>
-                    <small> (156) </small>
-                </li>
-
-                <li class="list-group-item">
-                    Chambre bébé</a>
-                    <small> (156) </small>
-                </li>
-
-                <li class="list-group-item">
-                    Rangement</a>
-                    <small> (156) </small>
-                </li>
-
-                <li class="list-group-item">
-                    Mobilier pro</a>
-                    <small> (156) </small>
-                </li>
-
-                <li class="list-group-item">
-                    Jardin</a>
-                    <small> (156) </small>
-                </li>
-            </ul>
-
-            <h5 class="my-3">Couleurs</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">Rouge </li>
-                <li class="list-group-item">Jaune </li>
-                <li class="list-group-item">Noir </li>
-                <li class="list-group-item">Blanc </li>
-            </ul>
 
         </div>
     </div>
@@ -237,8 +228,12 @@ ob_start(); ?>
                                 <span class="fw-bold me-2">$<?= _numbrer_format($p->prix) ?></span>
                                 <small> <del class="text-danger">$<?= _numbrer_format($p->ancien_prix) ?></del></small>
                             </div>
-                            <a href="cart" class="btn btn-dark mt-3">Add to cart</a>
 
+                            <form method="post">
+                                <input type="text" name="produit_id" value="<?= $p->product_id ?>">
+                                <input type="text" name="prix" value="<?= $p->prix ?>">
+                                <button name="add_to_cart" type="submit" class="btn btn-dark mt-3">Add to cart</button>
+                            </form>
                         </div>
 
                     </div>
