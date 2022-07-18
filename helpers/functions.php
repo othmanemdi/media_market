@@ -23,6 +23,11 @@ function _numbrer_format(float $value): string
     return number_format($value, 2, ",", " ",);
 }
 
+// function _date_format($value): string
+// {
+//     return date_format($value, "Y/m/d H:i:s");
+// }
+
 function get_client_ip()
 {
     $ipaddress = '';
