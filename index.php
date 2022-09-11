@@ -47,7 +47,7 @@ echo $content_php ?? "";
 
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="rtl" >
 <?php if ($admin) : ?>
 
     <head>

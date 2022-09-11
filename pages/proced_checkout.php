@@ -109,17 +109,14 @@ WHERE p.ip = :ip LIMIT 1 ");
     header('Location: thanx_page');
     exit();
 }
-
 $content_php = ob_get_clean();
-
 
 ob_start(); ?>
 
-<h3>Proced to checkout</h3>
 <form method="post">
     <div class="row">
         <div class="col-md-8">
-            <h3>Invoice Adresse</h3>
+            <h3>عنوان الفاتورة</h3>
 
             <div class="card">
 
@@ -128,52 +125,52 @@ ob_start(); ?>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label>
-                                    First Name: <span class="text-danger fw-bold">*</span>
+                                    الأسم الشخصي: <span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input type="text" name="prenom" class="form-control" placeholder="First Name:">
+                                <input type="text" name="prenom" class="form-control" placeholder="الأسم الشخصي :">
                             </div>
                         </div>
                         <div class="col-6">
 
                             <div class="form-group mb-3">
                                 <label>
-                                    Last Name: <span class="text-danger fw-bold">*</span>
+                                    النسب: <span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input type="text" name="nom" class="form-control" placeholder="Last Name:">
+                                <input type="text" name="nom" class="form-control" placeholder="النسب :">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label>
-                                    Address: <span class="text-danger fw-bold">*</span>
+                                    العنوان: <span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input name="adresse" type="text" class="form-control" placeholder="Address:">
+                                <input name="adresse" type="text" class="form-control" placeholder="العنوان:">
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label>
-                                    E-Mail:
+                                    البريد الالكتروني:<span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input name="email" type="email" class="form-control" placeholder="E-Mail Adresse:">
+                                <input name="email" type="email" class="form-control" placeholder="البريد الالكتروني :">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label>
-                                    Phone number: <span class="text-danger fw-bold">*</span>
+                                    رقم الهاتف: <span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input name="telephone" type="text" class="form-control" placeholder="Phone number:">
+                                <input name="telephone" type="text" class="form-control" placeholder=" رقم الهاتف:">
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="form-group mb-3">
                                 <label>
-                                    City:
+                                   المدينة:<span class="text-danger fw-bold">*</span>
                                 </label>
-                                <input name="ville" type="text" class="form-control" placeholder="City:">
+                                <input name="ville" type="text" class="form-control" placeholder="المدينة:">
                             </div>
                         </div>
 
@@ -187,7 +184,7 @@ ob_start(); ?>
         <!-- col -->
 
         <div class="col-md-4">
-            <h3>Payement Summary</h3>
+            <h3>ملخص الدفع</h3>
 
             <div class="p-3 bg-light">
 
@@ -196,7 +193,7 @@ ob_start(); ?>
 
                         <div class="ms-2 me-auto">
 
-                            <div class="fw-bold">Order Summary:</div>
+                            <div class="fw-bold">ملخص الطلب:</div>
 
                         </div>
 
@@ -204,18 +201,11 @@ ob_start(); ?>
 
                     </li>
 
-
-
-
                 </ul>
-
-                <button name="proced_to_checkout" type="submit" class="btn btn-info fw-bold text-white mt-3 rounded-pill">
+                <a href="thanx_page" name="proced_to_checkout" class="btn btn-info fw-bold text-white mt-3 rounded-pill">
                     PROCED TO CHECKOUT
-                </button>
+</a>
             </div>
-
-
-
         </div>
 
     </div>

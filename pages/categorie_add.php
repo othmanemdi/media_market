@@ -61,20 +61,20 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h3 class="mb-3">Ajouter une nouvelle catégorie</h3>
+<h3 class="mb-3">أضف فئة جديدة</h3>
 
 
 <div class="row justify-content-md-center ">
     <div class="col-6">
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4>Ajouter une nouvelle catégorie</h4>
+                <h4>ضف فئة جديدة  </h4>
             </div>
 
             <div class="card-body">
                 <a href="categories" class="btn btn-secondary mb-3">
                     <i class="fas fa-undo"></i>
-                    Liste des catégories
+                    لائحة الفئات
                 </a>
 
                 <!-- <?php if (!empty($errors)) : ?>
@@ -95,7 +95,7 @@ ob_start(); ?>
 
                 <form method="post">
                     <div class="mb-3">
-                        <label for="nom" class="form-label">catégorie</label>
+                        <label for="nom" class="form-label">فئة</label>
 
                         <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Catégorie">
 
@@ -104,7 +104,7 @@ ob_start(); ?>
                         </div>
                     </div>
 
-                    <button type="submit" name="categorie_add" class="btn btn-success"> <i class="fa-solid fa-plus"></i> Ajouter</button>
+                    <button type="submit" name="categorie_add" class="btn btn-success"> <i class="fa-solid fa-plus"></i> أضف</button>
                 </form>
 
             </div>

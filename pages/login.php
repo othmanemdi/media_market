@@ -37,41 +37,41 @@ ob_start(); ?>
 <div class="row justify-content-md-center ">
     <div class="col-6">
         <div class="bg-light p-5 rounded-pilla rounded-3">
-            <h3 class="text-center mb-4">CRÉER UN NOUVEAU COMPTE CLIENT </h3>
-            <h5 class="text-center">SE CONNECTER</h5>
+            <h3 class="text-center mb-4">سجل حسابك </h3>
+            <h5 class="text-center">دخول</h5>
 
             <form method="post" autocomplete="off" class="row g-3">
                 <div class="form-group">
-                    <label class="form-label" for="email">Adresse mail: (<span class="text-kitea">*</span>)</label>
+                    <label class="form-label" for="email">البريد الالكتروني: (<span class="text-kitea">*</span>)</label>
 
-                    <input name="email" type="email" class="form-control" id="email" require placeholder="Veuillez saisir votre email SVP !">
+                    <input name="email" type="email" class="form-control" id="email" require placeholder="أدخل بريدك الاكتروني !">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label" for="password">Mot de passe: (<span class="text-kitea">*</span>)</label>
+                    <label class="form-label" for="password">الرمز السري: (<span class="text-kitea">*</span>)</label>
 
-                    <input name="password" type="password" class="form-control" id="password" require placeholder="Veuillez saisir votre mot de passe SVP !">
+                    <input name="password" type="password" class="form-control" id="password" require placeholder="ادخل رمزك السري  !">
                 </div>
 
 
                 <div class="d-flex  mb-3">
                     <div class="me-auto p-2 ">
-                        <button type="submit" name="login" class="btn btn-info text-white">Connexion</button>
+                        <button type="submit" name="login" class="btn btn-warning text-white">دخول</button>
                     </div>
                     <div class="p-2 ">
-                        <a href="forgotpassword" class="text-kitea fw-bold">Mot de passe oublié?</a>
+                        <a href="forgotpassword" class="text-kitea fw-bold">نسيت الرمز السري?</a>
                     </div>
                 </div>
 
             </form>
 
-            <h5 class="text-center mt-4">Nouveaux clients</h5>
+            <h5 class="text-center mt-4">مستخذم جديد</h5>
             <hr>
             <p class="text-center">
-                La création d’un compte a de nombreux avantages : consultation rapide, sauvegarder plusieurs adresses, suivre les commandes, et bien plus encore.
+                لتسجيلك حساب معنا مميزات عدة : متابعة سريعة للمستجدات, متابعة طلبياتك, والكثير.
             </p>
             <div class="d-flex justify-content-center">
-                <a href="register" class="btn btn-info text-white mt-4 text-center">Créer un compte</a>
+                <a href="register" class="btn btn-warning text-white mt-4 text-center">تسجيل حساب</a>
             </div>
 
         </div>

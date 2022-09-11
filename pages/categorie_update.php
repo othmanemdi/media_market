@@ -80,20 +80,20 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h3 class="mb-3">Modifier <?= $categorie_name ?></h3>
+<h3 class="mb-3">تعديل <?= $categorie_name ?></h3>
 
 
 <div class="row justify-content-md-center ">
     <div class="col-6">
         <div class="card shadow-sm">
             <div class="card-header">
-                <h4>Modifier <?= $categorie_name ?></h4>
+                <h4>تعديل <?= $categorie_name ?></h4>
             </div>
 
             <div class="card-body">
                 <a href="categories" class="btn btn-secondary mb-3">
                     <i class="fas fa-undo"></i>
-                    Liste des catégories
+                     لائحةالفئات
                 </a>
 
                 <!-- <?php if (!empty($errors)) : ?>
@@ -123,7 +123,7 @@ ob_start(); ?>
                         </div>
                     </div>
 
-                    <button type="submit" name="categorie_update" class="btn btn-success"> <i class="fas fa-wrench"></i> Modifier</button>
+                    <button type="submit" name="categorie_update" class="btn btn-success"> <i class="fas fa-wrench"></i> تعديل</button>
                 </form>
 
             </div>

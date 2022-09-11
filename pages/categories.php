@@ -13,18 +13,18 @@ $content_php = ob_get_clean();
 
 ob_start(); ?>
 
-<h3 class="mb-3">Catégories</h3>
+<h3 class="mb-3">الفئات</h3>
 
 
 <div class="card shadow-sm">
     <div class="card-header">
-        <h4>Liste des catégories</h4>
+        <h4>لائحة الفئات</h4>
     </div>
 
     <div class="card-body">
         <a href="categorie_add" class="btn btn-primary mb-3">
             <i class="fas fa-plus"></i>
-            Ajouter</a>
+            أضف</a>
 
         <div class="table-responsive">
 
@@ -32,8 +32,8 @@ ob_start(); ?>
                 <thead>
                     <tr>
                         <th>Id</th>
-                        <th>Nom</th>
-                        <th>Actions</th>
+                        <th>الاسم</th>
+                        <th>الاجراءات</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,11 +48,11 @@ ob_start(); ?>
                             <td>
                                 <a href="categorie_update&id=<?= $c->id ?>" class="btn btn-dark btn-sm">
                                     <i class="fas fa-wrench"></i>
-                                    Modifier
+                                    تعديل
                                 </a>
                                 <button type="button" class="btn btn-danger btn-sm">
                                     <i class="fas fa-trash-alt"></i>
-                                    Supprimer
+                                    حذف
                                 </button>
                             </td>
                         </tr>

@@ -10,14 +10,14 @@ if (isset($_POST['ajt_compte'])) {
         // $errors["prenom"] = "Votre prénome n'est pas valide";
         $errors["prenom"] = "";
         if (empty($_POST['prenom'])) {
-            $errors["prenom"] .= "Veuillez saisir votre prenom SVP ";
+            $errors["prenom"] .= "المرجو كتابة اسمك الشخصي ";
         } else {
 
             if (!preg_match('/^[a-zA-Z]+$/', $_POST['prenom'])) {
-                $errors["prenom"] .= "Veuillez entrer des caractères alphabétique ";
+                $errors["prenom"] .= "المرجو كتابة الحروف الهجائية ";
             }
             if (strlen($_POST['prenom']) < 3) {
-                $errors["prenom"] .= "Veuillez entrer plus de 3 caractères ";
+                $errors["prenom"] .= "المرجو كتابة اكثر من 3 احرف ";
             }
         }
         $prenom_class_input = "is-invalid";
@@ -48,7 +48,7 @@ if (isset($_POST['ajt_compte'])) {
 
 
         if ($user) {
-            $errors['email'] = 'Cet email est déjà utilisé pour un autre compte';
+            $errors['email'] = ' هذا البريد الالكتروني مستخدم'   ;
             $email_class_input = "is-invalid";
             $email_class_feedback = "invalid-feedback";
         } else {
@@ -101,16 +101,16 @@ ob_start(); ?>
 <div class="row justify-content-md-center">
     <div class="col-8">
         <div class="bg-light p-5 rounded-pilla rounded-3">
-            <h2 class="text-center mb-4">CRÉER UN NOUVEAU COMPTE CLIENT </h2>
+            <h2 class="text-center mb-4">تسجبل حساب جديد </h2>
 
-            <h3 class="text-center">Informations personnelles</h3>
+            <h3 class="text-center">معلومات شخصية</h3>
 
             <?php if (!empty($errors)) : ?>
                 <div class="alert alert-danger shadow mb-4">
                     <h5>
                         <lord-icon src="https://cdn.lordicon.com/tdrtiskw.json" trigger="loop" colors="primary:#121331,secondary:#ed1c24" stroke="75" scale="40" style="width:50px;height:50px">
                         </lord-icon>
-                        Vous n'avez pas rempli le formulaire correctement
+                        المرجو ملء الاستمارة بشكل صحيح
                     </h5>
 
                     <ul class="list-group list-group-flush">
@@ -125,7 +125,7 @@ ob_start(); ?>
 
             <form method="post" autocomplete="off">
                 <div class="form-group mb-3">
-                    <label class="form-label" for="prenom">Prénom:</label>
+                    <label class="form-label" for="prenom">الاسم الشخصي:</label>
 
                     <input name="prenom" type="text" class="form-control <?= $prenom_class_input ?? "" ?>" id="prenom" placeholder="Veuillez saisir votre prénom SVP !" value="<?= $_POST['prenom'] ?? "" ?>">
 
@@ -136,7 +136,7 @@ ob_start(); ?>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label" for="nom">Nom:</label>
+                    <label class="form-label" for="nom">الاسم العائلي:</label>
 
                     <input name="nom" type="text" class="form-control <?= $nom_class_input ?? "" ?>" id="nom" placeholder="Veuillez saisir votre nom SVP !" value="<?= $_POST['nom'] ?? "" ?>">
 
@@ -146,7 +146,7 @@ ob_start(); ?>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label" for="email">Adresse mail:</label>
+                    <label class="form-label" for="email">البريد الاكتروني:</label>
 
                     <input name="email" type="email" class="form-control <?= $email_class_input ?? "" ?>" id="email" placeholder="Veuillez saisir votre adresse mail SVP !" value="<?= $_POST['email'] ?? "" ?>">
 
@@ -156,7 +156,7 @@ ob_start(); ?>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label" for="password">Mot de passe:</label>
+                    <label class="form-label" for="password">الرمز السري:</label>
 
                     <input name="password" type="password" class="form-control <?= $password_class_input ?? "" ?>" id="password" name="password" placeholder="Veuillez saisir votre Mot de passe SVP !">
 
@@ -166,7 +166,7 @@ ob_start(); ?>
                 </div>
 
                 <div class="form-group mb-3">
-                    <label class="form-label" for="password_confirm">Confirmer le mot de passe:</label>
+                    <label class="form-label" for="password_confirm">تأكيد الرمز السري:</label>
 
                     <input name="password_confirm" type="password" class="form-control <?= $password_confirm_class_input ?? "" ?>" id="password_confirm" name="password_confirm" placeholder="Veuillez confirmer le mot de passe SVP !">
 
@@ -175,8 +175,8 @@ ob_start(); ?>
                     </div>
                 </div>
 
-                <button type="submit" name="ajt_compte" class="btn btn-info text-white">Créer un compte</button>
-                <button class="btn btn-secondary">Retour</button>
+                <button type="submit" name="ajt_compte" class="btn btn-warning text-white">تسجبل حساب</button>
+                <button class="btn btn-secondary">رجوع</button>
             </form>
         </div>
     </div>

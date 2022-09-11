@@ -9,7 +9,7 @@ if (isset($_POST['panier_produits_delete'])) {
 
     $id = (int)$_POST['panier_produits_id'];
     $pdo->query("DELETE FROM panier_produits WHERE id = $id");
-    $_SESSION['flash']['success'] = 'Bien supprimer';
+    $_SESSION['flash']['success'] = 'تم الحذف';
     header('Location: cart');
     die();
 }
@@ -61,11 +61,11 @@ ob_start(); ?>
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Image</th>
-                        <th>Name</th>
-                        <th>Quantity</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th>صورة</th>
+                        <th>الأسم</th>
+                        <th>الكمية</th>
+                        <th>الثمن</th>
+                        <th>العملية</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -104,24 +104,24 @@ ob_start(); ?>
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="label_<?= $p->panier_produits_id ?>">
                                                     <i class="fas fa-trash-alt"></i>
-                                                    Supprimer
+                                                    حذف
                                                 </h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <div class="text-danger fw-bold h5"> Voulez vous vraiment supprimer <?= strtoupper($p->produit_nom) ?> ?</div>
+                                                <div class="text-danger fw-bold h5"> متأكد من الحذف <?= strtoupper($p->produit_nom) ?> ?</div>
                                             </div>
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                                                     <i class="fas fa-undo"></i>
-                                                    Retour
+                                                   رجوع
                                                 </button>
 
                                                 <form method="post" style="display: inline;">
                                                     <input type="hidden" name="panier_produits_id" value="<?= $p->panier_produits_id ?>">
                                                     <button name="panier_produits_delete" type="submit" class="btn btn-danger">
                                                         <i class="fas fa-trash-alt"></i>
-                                                        Supprimer
+                                                      حذف
                                                     </button>
                                                 </form>
                                             </div>
@@ -145,7 +145,7 @@ ob_start(); ?>
     </div>
 
     <div class="col-md-4">
-        <h3>Payement Summary</h3>
+        <h3>ملخص الدفع</h3>
 
         <div class="p-3 bg-light">
             <div class="d-flex mb-3">
@@ -153,7 +153,7 @@ ob_start(); ?>
                     <input type="text" class="form-control" placeholder="COUPON CODE">
                 </div>
                 <div class="p-2">
-                    <button type="button" class="btn btn-info fw-bold text-white">Apply</button>
+                    <button type="button" class="btn btn-info fw-bold text-white">طبق</button>
                 </div>
             </div>
 
@@ -162,7 +162,7 @@ ob_start(); ?>
 
                     <div class="ms-2 me-auto">
 
-                        <div class="fw-bold">Order Summary:</div>
+                        <div class="fw-bold">ملخص الطلب:</div>
 
                     </div>
 
